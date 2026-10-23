@@ -8,18 +8,19 @@ Module 3 mandatory assignment for NTU PACE. This Java 21 Spring Boot backend imp
 
 Prerequisites: JDK 21 and internet access for the first Maven dependency download. The generated Maven Wrapper is included. Spring Boot is **4.1.2**, selected from the stable Spring Initializr options on 23 October 2026. The wrapper uses Maven 3.10.0.
 
-From the project root in WSL Ubuntu:
+From the project root in WSL Ubuntu, use the installed Maven commands practised in class and specified in the assignment:
 
 ```bash
-chmod +x mvnw
-./mvnw -version
-./mvnw clean verify
-./mvnw spring-boot:run
+mvn -version
+mvn clean verify
+mvn spring-boot:run
 ```
 
-Installed Maven may be used with `mvn spring-boot:run`, as in the assignment. In Windows PowerShell, use `.\mvnw.cmd clean verify` and `.\mvnw.cmd spring-boot:run`. Keep the server terminal running while using Postman. Stop it with Ctrl+C.
+Confirm Maven reports Java 21. Keep the server terminal running while using Postman. Stop it with Ctrl+C.
 
-The base URL is `http://localhost:8080`. To use another port in WSL, run `PORT=8081 ./mvnw spring-boot:run` and update the Postman baseUrl. Fresh storage returns `[]` from GET `/api/tasks`.
+The generated Maven Wrapper is an alternative if installed Maven is unavailable: use `./mvnw clean verify` and `./mvnw spring-boot:run`. The script is already executable in this GitHub repository. In Windows PowerShell, its equivalents are `.\mvnw.cmd clean verify` and `.\mvnw.cmd spring-boot:run`.
+
+The base URL is `http://localhost:8080`. To use another port in WSL, run `PORT=8081 mvn spring-boot:run` and update the Postman baseUrl. Fresh storage returns `[]` from GET `/api/tasks`.
 
 ## Endpoints
 
@@ -51,23 +52,66 @@ Unknown positive IDs return 404. Invalid IDs, blank or missing titles, titles ov
 The HTTP request enters TaskController, which calls TaskService through constructor injection. TaskService validates data and calls TaskRepository through constructor injection. TaskRepository owns the map and ID counter. Task is a plain POJO using Lombok annotations; it has no Spring annotations.
 
 ```text
-src/main/java/sg/edu/ntu/taskflowapi/
-  TaskflowApiApplication.java
-  controller/TaskController.java
-  controller/ApiExceptionHandler.java
-  model/Task.java
-  repository/TaskRepository.java
-  service/TaskService.java
-src/test/java/sg/edu/ntu/taskflowapi/
-  TaskflowApiApplicationTests.java
-  service/TaskServiceTest.java
+module3-taskflow-api/
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+├── .mvn/
+│   └── wrapper/
+│       └── maven-wrapper.properties
+├── .gitattributes
+├── .gitignore
+├── src/
+│   ├── main/
+│   │   ├── java/sg/edu/ntu/taskflowapi/
+│   │   │   ├── TaskflowApiApplication.java
+│   │   │   ├── controller/
+│   │   │   │   ├── TaskController.java
+│   │   │   │   └── ApiExceptionHandler.java
+│   │   │   ├── model/
+│   │   │   │   └── Task.java
+│   │   │   ├── repository/
+│   │   │   │   └── TaskRepository.java
+│   │   │   └── service/
+│   │   │       └── TaskService.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+│       └── java/sg/edu/ntu/taskflowapi/
+│           ├── TaskflowApiApplicationTests.java
+│           └── service/
+│               └── TaskServiceTest.java
+├── docs/
+│   ├── EDA-and-context.md
+│   ├── document-review.md
+│   ├── requirements-matrix.md
+│   ├── finish-today.md
+│   ├── sample-tasks.csv
+│   ├── postman/
+│   │   ├── TaskFlow.postman_collection.json
+│   │   └── TaskFlow-Local.postman_environment.json
+│   └── evidence/
+├── scripts/
+│   └── http_smoke.py
+└── README.md
 ```
+
+The root folder is `module3-taskflow-api` when cloned from GitHub; the earlier ZIP uses `taskflow-api`. Both contain the same Maven project. The `docs/evidence` folder contains the verification record and saved test results.
+
+| Layer folder | Main class | Responsibility |
+| --- | --- | --- |
+| controller | TaskController | Receive HTTP requests and return responses |
+| model | Task | Hold the task data |
+| repository | TaskRepository | Generate IDs and store tasks in the HashMap |
+| service | TaskService | Validate input and perform task operations |
+
+`ApiExceptionHandler` also belongs in the controller folder because it turns exceptions into HTTP error responses. `TaskflowApiApplication` stays above the four folders so Spring can discover their components.
 
 The repository uses a non-null HashMap with a counter for generated IDs. It returns copies and sorts lists by ID. Synchronized repository methods protect individual map operations and counter increments. Multi-step service operations are not database transactions.
 
 ## Verification and evidence
 
-- Run `./mvnw clean verify` for service tests, Spring context startup, and JAR packaging.
+- Run `mvn clean verify` for service tests, Spring context startup, and JAR packaging.
 - Import the collection and environment from `docs/postman` into Postman. Run the 24 requests in order. Each includes assertions; generated IDs are captured automatically and both synthetic tasks are deleted at the end.
 - For additional HTTP verification, start a fresh server and run `python3 scripts/http_smoke.py` from a second terminal. It writes `docs/evidence/http-checks.json`.
 - Read [actual verification status](docs/evidence/verification.md) for execution results and outstanding learner actions. Expected results in the guide are not automatically completed checks.
