@@ -80,10 +80,12 @@ The full URL combines the server address and port with the controller's `/api/ta
 
 The collection runner displays request statuses and assertion results. Postman run exports and request/response captures can be saved alongside the task inputs used for a run. [Recorded test results](evidence/verification.md) link the build, HTTP, and Newman reports.
 
-The additional HTTP script runs from a second terminal while a fresh server is running:
+The Java HTTP integration tests are in [TaskControllerHttpTest.java](../src/test/java/sg/edu/ntu/taskflowapi/controller/TaskControllerHttpTest.java). They start an isolated Spring Boot server on a random port and check the six task endpoints, validation errors, missing IDs, and saved task state. They run automatically with `mvn clean verify`.
+
+To run only this test class:
 
 ```bash
-python3 scripts/http_smoke.py
+mvn -Dtest=TaskControllerHttpTest test
 ```
 
-It writes `docs/evidence/http-checks.json`. It is a separate HTTP regression tool alongside the Postman collections.
+The `-Dtest` option selects the named Java test class. Maven starts and stops the test server automatically. Interactive Postman requests use the application started with `mvn spring-boot:run`.

@@ -22,7 +22,7 @@ The HTTP server supplies controlled responses at `/v1/chat/completions`. This de
 | Blank output | Empty provider content becomes readable 502 | Passed |
 | Error details | HTTP response excludes provider diagnostics | Passed |
 
-Five summary-service tests and five summary HTTP tests passed. The complete Maven build passed 21 tests with zero failures, errors, or skips.
+Five summary-service tests and five summary HTTP tests passed. The complete Maven build, including the task-controller HTTP suite, passed 24 tests with zero failures, errors, or skips.
 
 ## Postman collection run through Newman
 
@@ -36,7 +36,7 @@ The captured provider requests contained completed/pending counts of 1/1 followe
 | --- | --- |
 | [Summary service tests](sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest.txt) | Five service-test results |
 | [Summary HTTP tests](sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest.txt) | Five integration-test results |
-| [Maven build](task6-maven-verify.txt) | Complete 21-test build and packaging output |
+| [Maven build](java-http-maven-verify.txt) | Complete 24-test build and packaging output |
 | [AI collection run](task6-ai-newman.txt) | Nine requests and fifteen assertions |
 | [Provider-contract data](task6-postman-summary.json) | Captured task data and controlled responses |
 | [CRUD regression](task6-crud-newman.txt) | Twenty-four requests and thirty-eight assertions |

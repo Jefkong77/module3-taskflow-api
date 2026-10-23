@@ -51,7 +51,7 @@ Empty lists return a fixed factual message. A fifty-task limit bounds prompt siz
 
 ## Verification approach
 
-Service tests cover business behaviour. HTTP checks exercise routing and JSON binding. Postman collections cover the task API and summary flow. Summary unit tests use model doubles, while integration tests connect the Spring AI HTTP client to a local OpenAI-compatible test server. Reports and results are linked in [test results](evidence/verification.md).
+Service tests cover business behaviour. [TaskControllerHttpTest](../src/test/java/sg/edu/ntu/taskflowapi/controller/TaskControllerHttpTest.java) starts Spring Boot on a random port and uses Java's HTTP client to exercise routing, JSON binding, validation, and saved state. Postman collections cover the task API and summary flow. Summary unit tests use model doubles, while summary integration tests connect the Spring AI HTTP client to a local OpenAI-compatible test server. Reports and results are linked in [test results](evidence/verification.md).
 
 ## Sources
 

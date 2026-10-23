@@ -4,17 +4,18 @@ Recorded execution: 23 October 2026, Singapore time.
 
 ## Build and automated tests
 
-The Tasks 1–6 build passed `clean verify` with 21 tests, zero failures, zero errors, and zero skips. The build uses Java 21.0.13 Temurin, Spring Boot 4.1.2, Spring AI 2.0.1, and Maven 3.10.0 through the generated wrapper.
+The Tasks 1–6 build passed `clean verify` with 24 tests, zero failures, zero errors, and zero skips. The build uses Java 21.0.13 Temurin, Spring Boot 4.1.2, Spring AI 2.0.1, and Maven 3.10.0 through the generated wrapper.
 
 | Test suite | Passed | Report |
 | --- | --- | --- |
 | Task service | 10 | [TaskServiceTest](sg.edu.ntu.taskflowapi.service.TaskServiceTest.txt) |
 | Application context | 1 | [TaskflowApiApplicationTests](sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests.txt) |
+| Task controller HTTP integration | 3 | [TaskControllerHttpTest](sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest.txt) |
 | Summary service | 5 | [TaskSummaryServiceTest](sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest.txt) |
 | Summary HTTP integration | 5 | [TaskSummaryHttpTest](sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest.txt) |
-| Total | 21 | [Maven build log](task6-maven-verify.txt) |
+| Total | 24 | [Maven build log](java-http-maven-verify.txt) |
 
-Summary unit tests use model doubles. Summary HTTP integration tests connect the Spring AI client to a local OpenAI-compatible test server with controlled responses. They exercise request serialization, response parsing, and HTTP error handling.
+Task-controller HTTP tests start an isolated Spring Boot server and use Java's HTTP client to exercise all six task endpoints, JSON binding, validation, generated IDs, repeated completion, deletion, and missing resources. They run within the Maven test suite. Summary unit tests use model doubles. Summary HTTP integration tests connect the Spring AI client to a local OpenAI-compatible test server with controlled responses. They exercise request serialization, response parsing, and HTTP error handling.
 
 ## API and Postman collection runs
 

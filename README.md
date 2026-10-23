@@ -60,18 +60,17 @@ module3-taskflow-api/
 │       │   ├── TaskServiceTest.java
 │       │   └── TaskSummaryServiceTest.java
 │       └── controller/
+│           ├── TaskControllerHttpTest.java
 │           └── TaskSummaryHttpTest.java
-├── docs/
-│   ├── EDA-and-context.md
-│   ├── document-review.md
-│   ├── requirements-matrix.md
-│   ├── finish-today.md
-│   ├── task6-ai-summary.md
-│   ├── sample-tasks.csv
-│   ├── postman/
-│   └── evidence/
-└── scripts/
-    └── http_smoke.py
+└── docs/
+    ├── EDA-and-context.md
+    ├── document-review.md
+    ├── requirements-matrix.md
+    ├── finish-today.md
+    ├── task6-ai-summary.md
+    ├── sample-tasks.csv
+    ├── postman/
+    └── evidence/
 ```
 
 ## Build and run
@@ -138,7 +137,7 @@ The summary service reads the current task list and returns text without changin
 
 ## Tests
 
-`mvn clean verify` runs 21 tests: ten task-service tests, one application-context test, five summary-service tests, and five summary HTTP tests. Summary unit tests use model doubles; HTTP integration tests use Spring AI with a local OpenAI-compatible test server and controlled responses.
+`mvn clean verify` runs 24 tests: ten task-service tests, one application-context test, three task-controller HTTP tests, five summary-service tests, and five summary HTTP tests. [TaskControllerHttpTest.java](src/test/java/sg/edu/ntu/taskflowapi/controller/TaskControllerHttpTest.java) uses Java's HTTP client against an isolated Spring Boot server to check the task lifecycle, validation, and missing resources. Summary unit tests use model doubles; summary HTTP tests use Spring AI with a local OpenAI-compatible test server and controlled responses.
 
 The [CRUD collection](docs/postman/TaskFlow.postman_collection.json) contains 24 requests. The [AI collection](docs/postman/TaskFlow-AI.postman_collection.json) contains nine requests. Both use the [TaskFlow Local environment](docs/postman/TaskFlow-Local.postman_environment.json). Recorded Newman runs passed 38 CRUD assertions and 15 summary assertions; the summary run used the local test server. See [test results](docs/evidence/verification.md) for the reports.
 
