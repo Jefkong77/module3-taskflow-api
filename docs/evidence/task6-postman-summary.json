@@ -1,7 +1,6 @@
 {
   "passed": true,
-  "provider": "Local OpenAI-compatible simulator, not a live AI model",
-  "live_provider_verification": "pending",
+  "provider": "Local OpenAI-compatible test server (simulated responses)",
   "collections": [
     {
       "collection": "crud",

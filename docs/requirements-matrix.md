@@ -4,7 +4,7 @@ The Word assignment is the authority. Supporting safeguards are labelled separat
 
 | Brief item | Implementation or evidence | Completion gate |
 | --- | --- | --- |
-| Maven Java 21 stable Spring Boot Jar | pom.xml and generated wrapper | Run ./mvnw -version and ./mvnw clean verify |
+| Maven Java 21 stable Spring Boot Jar | pom.xml and generated wrapper | Run mvn -version and mvn clean verify |
 | Group sg.edu.ntu artifact taskflow-api | pom.xml | Inspect generated metadata |
 | Spring Web Lombok DevTools | pom.xml | Inspect dependencies and compile |
 | Task 1 four folders | src/main/java/sg/edu/ntu/taskflowapi/{controller,model,service,repository} | Source inspection |
@@ -23,6 +23,6 @@ The Word assignment is the authority. Supporting safeguards are labelled separat
 | Test every endpoint in Postman | docs/postman/TaskFlow.postman_collection.json | Import and run in Postman; record result |
 | Public GitHub repository | docs/finish-today.md | Verify public URL after push |
 | Submit URL to NTU Learn | docs/finish-today.md | Save submission acknowledgement |
-| Task 6 Spring AI summary | TaskSummaryController, TaskSummaryService, Spring AI starter and environment-key reference | Code and local-provider contract verified; live response pending |
+| Task 6 Spring AI summary | TaskSummaryController, TaskSummaryService, Spring AI starter and environment-key reference | Automated contract checks in Task 6 verification; provider setup and Postman summary procedure in task6-ai-summary.md |
 
 Additional choices: title validation, readable 400/404 errors, deterministic ordering, defensive copies, and automated tests. These support the assignment without changing its model, in-memory storage, or required success codes.

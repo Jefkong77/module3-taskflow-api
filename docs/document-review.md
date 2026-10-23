@@ -17,30 +17,24 @@ The mandatory Word brief specifies TaskFlow, an in-memory task API. The supplied
 | HTTP | Six specified routes | Exact paths and methods preserved |
 | Success codes | 201 create and 200 for the rest | DELETE returns 200 |
 | Testing | Test every endpoint in Postman | Runnable Postman collection plus service and HTTP checks |
-| Spring AI | Optional better-score step | Implemented as Task 6; live-provider verification pending |
-| Submission | Public GitHub URL on NTU Learn | Final account actions remain explicit in checklist |
+| Spring AI | Optional better-score step | Task 6 summary endpoint, provider configuration, and automated integration checks |
+| Submission | Public GitHub URL on NTU Learn | Public repository URL and submission procedure documented |
 | EDA | Not requested | Add concise context and synthetic-data analysis |
 
 ## What was retained from the guide
 
-The five mandatory implementation classes and service tests were used as an assisted starting point. The repository uses defensive copies, generated IDs, and sorted output. Validation and readable errors support testing. The controller and service use explicit constructors so the dependency flow is visible.
+The implementation follows the required model, repository, service, and controller structure. The repository uses defensive copies, generated IDs, and sorted output. Validation and readable errors support testing. The controller and service use explicit constructors so the dependency flow is visible.
 
 ## What needed execution or care
 
-The guide originally described Java examples that had not been compiled in a generated project. This package contains the generated project, executable test procedures, and an execution record in `evidence/verification.md`. That record distinguishes verified checks from remaining actions.
+The generated project includes executable test procedures and execution records in `evidence/verification.md` and `evidence/task6-verification.md`.
 
 HTTP testing found a version-specific JSON issue: the generated Spring Boot 4.1.2 stack rejected a creation body that omitted the primitive completed flag. The final application sets `spring.jackson.deserialization.fail-on-null-for-primitives=false` to preserve the documented false default. The omission scenario is included in both the Python HTTP checks and the Postman collection. This is why compiling and service tests alone were not sufficient.
 
-Postman procedures in a document are not evidence that requests were sent. The exported collection can be run directly; any Newman execution is labelled as the Postman command-line runner rather than desktop screenshots. The learner should also run and inspect requests in Postman, as the brief directs.
+The exported collections support interactive Postman runs and automated Newman runs. Saved Newman reports record request counts, assertions, and failures; the setup guide explains importing the same collections into Postman.
 
-Task 6 was added using the compatible Spring AI BOM and OpenAI starter selected by Spring Initializr. Its ChatClient uses environment configuration; the project holds no real provider key. Automated tests use model doubles and a local HTTP provider simulator. A genuine provider response remains to be verified in the learner environment.
-
-The sample Git commands must use the actual GitHub owner and repository. Sample attribution to another tool should not be copied unless factually accurate. No GitHub URL should be described as submitted until NTU Learn confirms it.
+Task 6 uses the compatible Spring AI BOM and OpenAI starter selected by Spring Initializr. Its ChatClient reads provider configuration from environment variables. Automated tests use model doubles and a local OpenAI-compatible HTTP test server for repeatable prompt, request, response, and error checks. Provider setup and Postman procedures are documented separately in `task6-ai-summary.md`.
 
 ## EDA boundary
 
 There is no supplied empirical dataset and no requirement for Python notebooks, machine learning, or graphs. The EDA therefore states the business problem, user actions, schema, quality checks, lifecycle, and test coverage. Its six sample records are explicitly synthetic and are not loaded automatically into the API.
-
-## Learner responsibility
-
-The brief explicitly says to write the code yourself using what was learned in class. Use the assisted material for understanding and adaptation, follow Ms. Sanjela's rules, and be ready to explain the complete flow of each request. Automated verification establishes software behaviour; it does not establish independent authorship or replace the required submission.

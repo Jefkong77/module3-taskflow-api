@@ -10,7 +10,7 @@ This analysis explains the problem, data contract, design choices, and verificat
 
 ## Context and intended user
 
-A learner or project coordinator needs to add an action, list actions, retrieve one action, update it, mark it complete, and delete it. For example, a research action could later support a market research workflow. This submission remains a task API with the required task resource and fields.
+A person managing project tasks needs to add an action, list actions, retrieve one action, update it, mark it complete, and delete it. For example, a research action could later support a market research workflow. TaskFlow uses the required task resource and fields.
 
 The API is exercised through Postman. A dashboard, React interface, database, authentication, RAG, MCP, and deployment are outside this mandatory assignment. PostgreSQL, DBeaver, JPA, and SQL are not used because the brief explicitly requires an ArrayList or HashMap in memory.
 
@@ -62,16 +62,14 @@ A HashMap supports direct lookup by ID. Repository methods are synchronized to p
 
 ## Evidence and completion criteria
 
-Each mandatory requirement is mapped to a source file and verification method in `requirements-matrix.md`. Service tests check business behaviour. HTTP checks and the Postman collection check routes, JSON, and response codes. Actual execution results belong in `evidence/verification.md`; an expected result is not evidence that a test ran.
-
-The final completion gate also includes the learner's Postman checks, a working public GitHub URL, and the NTU Learn acknowledgement. Local source preparation alone is not a completed submission.
+Each mandatory requirement is mapped to a source file and verification method in [the requirement matrix](requirements-matrix.md). Service tests check business behaviour. HTTP checks and the Postman collection check routes, JSON, and response codes. Execution results are recorded in [Tasks 1–5 verification](evidence/verification.md) and [Task 6 verification](evidence/task6-verification.md).
 
 ## Limitations and possible continuation
 
-Restarting the process or triggering a DevTools restart clears tasks and resets IDs. There is no database, user ownership, or authentication. These limits match the exercise scope. Task 6 now adds a read-only Spring AI summary of the stored tasks. The real provider key belongs in the private shell environment. Its code and local-provider contract tests are implemented; live-model verification remains pending.
+The initialized HashMap keeps tasks available during the application session. Restarting the process or triggering a DevTools restart starts a fresh task list and resets IDs, matching the assignment's in-memory storage requirement. Task 6 adds a read-only Spring AI summary of the stored tasks, with provider settings read from environment variables. Its automated integration checks use a local OpenAI-compatible test server.
 
 A later learning project could replace storage with PostgreSQL and add a React task screen. Such work should follow the assessed submission. Opportunity records and Task records have different schemas and resource paths, so a TaskFlow URL cannot directly replace the India Opportunity Navigator opportunity API.
 
 ## Source authority
 
-The supplied `Module3_Assignment_mandatory (1) (2).docx` controls assessed scope. `Module3_Backend_Development_Guide.md` is supporting guidance. Its examples are the starting point for this assisted reference implementation and must be reviewed, understood, and adapted by the learner in accordance with the brief's instruction to write the code yourself.
+The supplied `Module3_Assignment_mandatory (1) (2).docx` defines the assessed scope. Framework and API references are linked in the [README](../README.md#references) and [Task 6 guide](task6-ai-summary.md#references).

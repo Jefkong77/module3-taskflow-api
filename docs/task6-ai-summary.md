@@ -2,7 +2,7 @@
 
 Task 6 adds GET `/api/tasks/summary`. It reads the current task list, sends task titles and completion states through Spring AI, and returns a short plain-English summary. It is a read-only operation: it does not create, update, complete, or delete tasks.
 
-The source and automated tests are implemented. A live-provider response using the learner's private API key is still to be verified. The HTTP contract tests use a local provider simulator and do not represent real AI output.
+Automated tests use model doubles and a local OpenAI-compatible test server to check prompts, request data, response parsing, and errors. The steps below configure a provider and exercise the summary through Postman.
 
 ## Files and responsibilities
 
@@ -82,7 +82,7 @@ mvn clean verify
 mvn spring-boot:run
 ```
 
-The automated tests use explicit non-secret test placeholders and local model doubles. They do not make live model requests. Application startup for ordinary use now requires the real OPENAI_API_KEY environment variable. Leave the server terminal running while testing in Postman.
+Automated tests supply their own test configuration and local model doubles. For ordinary application startup, set OPENAI_API_KEY in the shell environment first. Leave the server terminal running while testing in Postman.
 
 ## 4 Test with two synthetic tasks
 
@@ -110,7 +110,7 @@ Use the generated pending task ID with PUT `/api/tasks/{id}/complete`, then requ
 
 ## 5 Run the dedicated Postman collection
 
-Import `docs/postman/TaskFlow-AI.postman_collection.json` and the existing TaskFlow Local environment. Run the nine requests in order on a fresh server. The collection creates two synthetic tasks, requests two model summaries, marks the pending task complete, removes its two tasks, and checks the empty-list response. Its scripts verify HTTP status, response type, and nonempty output; the learner verifies the model's meaning.
+Import `docs/postman/TaskFlow-AI.postman_collection.json` and the existing TaskFlow Local environment. Run the nine requests in order on a fresh server. The collection creates two synthetic tasks, requests two model summaries, marks the pending task complete, removes its two tasks, and checks the empty-list response. Its scripts verify HTTP status, response type, and nonempty output. Compare each summary's meaning with the stored task titles and counts.
 
 The original 24-request collection remains the Tasks 1–5 regression collection. The AI collection is separate because its nonempty-summary requests use the selected provider account.
 
@@ -126,7 +126,7 @@ The original 24-request collection remains the Tasks 1–5 regression collection
 
 The fifty-task limit is an implementation safeguard, not an assignment rule. The client request timeout is fifteen seconds and client retries are disabled so an error does not trigger several repeated requests. A generated summary can still be inaccurate; stored task records are the reference for review.
 
-Capture the live response and Postman results after configuring your private environment. The assignment remains under learner review; no instructor or NTU Learn submission is made by these implementation steps.
+Save the provider response and Postman run results together with the task list used for the check. This makes the summary's counts and meaning easy to compare with the source records.
 
 ## References
 

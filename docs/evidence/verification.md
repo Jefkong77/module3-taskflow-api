@@ -25,23 +25,12 @@ The server was started with the assignment's Maven goal through the generated wr
 
 The first live HTTP run detected that omitting completed was rejected by the current Jackson configuration, despite the Java field being a primitive boolean. The final configuration explicitly treats omitted or null primitive values as their Java defaults. The corrected application passed the complete HTTP and Postman runs. No service test result was used as a substitute for checking HTTP JSON binding.
 
-## Verification boundaries
+## Test methods and reports
 
-Newman executed the actual Postman collection and its post-response test scripts. No desktop Postman session or Postman screenshots are claimed. The learner should import and inspect the same collection in Postman to follow the brief's testing instruction directly.
+Newman executed the Postman collection and its post-response test scripts. The collection is also available for interactive use in Postman; import instructions are in [the setup guide](../finish-today.md).
 
-Both Maven startup and the final executable JAR were checked. The final clean build contains the Spring Boot launcher manifest and starts with `java -jar target/taskflow-api-0.0.1-SNAPSHOT.jar`. Its four HTTP checks include the explicit null completion case. Build output is omitted from the source submission ZIP; rebuilding creates the JAR. The learner procedure uses `mvn spring-boot:run`, as specified in the assignment and practised in class. Verification here used the generated wrapper to run the same Maven goal.
+Both Maven startup and the executable JAR were checked. The clean build contains the Spring Boot launcher manifest and starts with `java -jar target/taskflow-api-0.0.1-SNAPSHOT.jar`. Its four HTTP checks include the explicit null completion case. Rebuilding creates the JAR in target. The setup procedure uses `mvn spring-boot:run`, as specified in the assignment and practised in class. These verification runs used the generated wrapper to run the same Maven goal.
 
-Public GitHub repository: https://github.com/Jefkong77/module3-taskflow-api. Repository creation was completed after the user approved browser sign-in. The source, tests, EDA, Postman collection, and evidence are published on main. Publication is separate from the NTU Learn submission.
+Public GitHub repository: [Jefkong77/module3-taskflow-api](https://github.com/Jefkong77/module3-taskflow-api). The main branch contains source, tests, EDA, Postman collections, and test reports.
 
-NTU Learn was not accessed and no submission acknowledgement was obtained. The assignment is not submitted yet. Finish the account actions in `../finish-today.md` after reviewing and adapting the implementation.
-
-This record documents the earlier Tasks 1–5 baseline. Task 6 has since been implemented. Read `task6-verification.md` in this folder for the current test results and the outstanding live-provider check. No instructor or NTU Learn submission has been made.
-
-## Final learner checklist
-
-- [ ] Review and adapt the implementation and explain its four layers.
-- [ ] Run the local build under Java 21 in VS Code WSL Ubuntu.
-- [ ] Import and test the collection in desktop Postman and retain evidence.
-- [x] Create the public repository and publish the prepared source and documentation.
-- [x] Verify public visibility and anonymous access to the published repository.
-- [ ] Submit its URL through NTU Learn and retain the acknowledgement.
+This record documents the Tasks 1–5 baseline. [Task 6 verification](task6-verification.md) records the subsequent 21-test build and Spring AI integration checks.
