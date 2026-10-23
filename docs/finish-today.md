@@ -5,13 +5,13 @@
 | Milestone | Suggested learner time | Evidence |
 | --- | --- | --- |
 | Review context and understand four layers | 15 minutes | Explain one request from controller to repository |
-| Review and adapt each source file | 30–45 minutes | Your understood implementation of Tasks 1–5 |
+| Review and adapt each source file | 30–45 minutes | Your understood implementation of Tasks 1–6 |
 | Build locally in VS Code WSL Ubuntu | 10–20 minutes | Java 21 and successful Maven output |
 | Test all routes in Postman | 20–30 minutes | Six success routes, request bodies, status and response |
 | Push and verify public GitHub URL | 10–15 minutes | Public repository containing complete source |
 | Submit on NTU Learn | 5–10 minutes | Submission acknowledgement |
 
-Allow extra time for downloads or errors. The submission is complete only after NTU Learn accepts the repository URL. Optional Spring AI is outside this baseline.
+Allow extra time for downloads or errors. The submission is complete only after NTU Learn accepts the repository URL. Task 6 is now implemented. Follow `task6-ai-summary.md` for private provider setup and live summary verification.
 
 ## 1 Open the project in WSL Ubuntu
 
@@ -35,14 +35,14 @@ The Explorer should show `pom.xml`, `mvnw`, and `src` at the project root. Do no
 
 The brief says to write the code yourself using class learning. Treat the supplied implementation as assisted reference material: read, understand, and adapt it according to your instructor's rules. Do not claim independent authorship of generated work.
 
-Read `Task.java`, then `TaskRepository.java`, `TaskService.java`, and `TaskController.java`. Read `ApiExceptionHandler.java` last. All files are under `src/main/java/sg/edu/ntu/taskflowapi`.
+Read `Task.java`, then `TaskRepository.java`, `TaskService.java`, and `TaskController.java`. Then read `TaskSummaryService.java`, `TaskSummaryController.java`, and `ApiExceptionHandler.java`. All files are under `src/main/java/sg/edu/ntu/taskflowapi`.
 
 ```bash
 mvn clean verify
 mvn spring-boot:run
 ```
 
-The second command keeps running. Leave this terminal open while testing. These are the installed Maven commands used in class and specified in the brief. If Maven is unavailable, the wrapper alternatives are `./mvnw clean verify` and `./mvnw spring-boot:run`. A fresh `GET http://localhost:8080/api/tasks` should return 200 and `[]`.
+The second command keeps running. Leave this terminal open while testing. Configure the private provider environment in `task6-ai-summary.md` before ordinary application startup. These are the installed Maven commands used in class and specified in the brief. If Maven is unavailable, the wrapper alternatives are `./mvnw clean verify` and `./mvnw spring-boot:run`. A fresh `GET http://localhost:8080/api/tasks` should return 200 and `[]`.
 
 If 8080 is already used by another lesson:
 

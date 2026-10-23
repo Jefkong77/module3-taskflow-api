@@ -2,11 +2,11 @@
 
 Public repository: [Jefkong77/module3-taskflow-api](https://github.com/Jefkong77/module3-taskflow-api).
 
-Module 3 mandatory assignment for NTU PACE. This Java 21 Spring Boot backend implements Tasks 1–5: a Lombok Task POJO, an initialized in-memory HashMap repository, a service, and six REST endpoints. Context and data analysis for Ms. Sanjela are in [the EDA](docs/EDA-and-context.md).
+Module 3 mandatory assignment for NTU PACE. This Java 21 Spring Boot backend implements Tasks 1–5: a Lombok Task POJO, an initialized in-memory HashMap repository, a service, and six CRUD/completion endpoints. Task 6 adds a seventh endpoint for a Spring AI summary. Context and data analysis for Ms. Sanjela are in [the EDA](docs/EDA-and-context.md).
 
 ## Start and test
 
-Prerequisites: JDK 21 and internet access for the first Maven dependency download. The generated Maven Wrapper is included. Spring Boot is **4.1.2**, selected from the stable Spring Initializr options on 23 October 2026. The wrapper uses Maven 3.10.0.
+Prerequisites: JDK 21 and internet access for the first Maven dependency download. The generated Maven Wrapper is included. Spring Boot is **4.1.2**, selected from the stable Spring Initializr options on 23 October 2026. The wrapper uses Maven 3.10.0. Spring AI 2.0.1 and its OpenAI starter were selected from Spring Initializr for this Spring Boot version. Before ordinary application startup, configure your private provider environment using [the Task 6 steps](docs/task6-ai-summary.md). Automated tests do not require a real key.
 
 From the project root in WSL Ubuntu, use the installed Maven commands practised in class and specified in the assignment:
 
@@ -32,6 +32,7 @@ The base URL is `http://localhost:8080`. To use another port in WSL, run `PORT=8
 | PUT | /api/tasks/{id} | Replace title and completed | 200 |
 | DELETE | /api/tasks/{id} | Delete a task | 200 |
 | PUT | /api/tasks/{id}/complete | Set completed to true and save | 200 |
+| GET | /api/tasks/summary | Return a short plain-English AI summary | 200 |
 
 POST and PUT bodies use raw JSON in Postman with Content-Type `application/json`:
 
@@ -67,29 +68,36 @@ module3-taskflow-api/
 │   │   │   ├── TaskflowApiApplication.java
 │   │   │   ├── controller/
 │   │   │   │   ├── TaskController.java
-│   │   │   │   └── ApiExceptionHandler.java
+│   │   │   │   ├── ApiExceptionHandler.java
+│   │   │   │   └── TaskSummaryController.java
 │   │   │   ├── model/
 │   │   │   │   └── Task.java
 │   │   │   ├── repository/
 │   │   │   │   └── TaskRepository.java
 │   │   │   └── service/
-│   │   │       └── TaskService.java
+│   │   │       ├── TaskService.java
+│   │   │       └── TaskSummaryService.java
 │   │   └── resources/
 │   │       └── application.properties
 │   └── test/
 │       └── java/sg/edu/ntu/taskflowapi/
 │           ├── TaskflowApiApplicationTests.java
+│           ├── controller/
+│           │   └── TaskSummaryHttpTest.java
 │           └── service/
-│               └── TaskServiceTest.java
+│               ├── TaskServiceTest.java
+│               └── TaskSummaryServiceTest.java
 ├── docs/
 │   ├── EDA-and-context.md
 │   ├── document-review.md
 │   ├── requirements-matrix.md
 │   ├── finish-today.md
+│   ├── task6-ai-summary.md
 │   ├── sample-tasks.csv
 │   ├── postman/
 │   │   ├── TaskFlow.postman_collection.json
-│   │   └── TaskFlow-Local.postman_environment.json
+│   │   ├── TaskFlow-Local.postman_environment.json
+│   │   └── TaskFlow-AI.postman_collection.json
 │   └── evidence/
 ├── scripts/
 │   └── http_smoke.py
@@ -105,6 +113,8 @@ The root folder is `module3-taskflow-api` when cloned from GitHub; the earlier Z
 | repository | TaskRepository | Generate IDs and store tasks in the HashMap |
 | service | TaskService | Validate input and perform task operations |
 
+`TaskSummaryController` calls `TaskSummaryService`, which reads tasks through `TaskService` and uses an injected Spring AI ChatClient.
+
 `ApiExceptionHandler` also belongs in the controller folder because it turns exceptions into HTTP error responses. `TaskflowApiApplication` stays above the four folders so Spring can discover their components.
 
 The repository uses a non-null HashMap with a counter for generated IDs. It returns copies and sorts lists by ID. Synchronized repository methods protect individual map operations and counter increments. Multi-step service operations are not database transactions.
@@ -112,20 +122,34 @@ The repository uses a non-null HashMap with a counter for generated IDs. It retu
 ## Verification and evidence
 
 - Run `mvn clean verify` for service tests, Spring context startup, and JAR packaging.
-- Import the collection and environment from `docs/postman` into Postman. Run the 24 requests in order. Each includes assertions; generated IDs are captured automatically and both synthetic tasks are deleted at the end.
+- Import the original collection and environment from `docs/postman` into Postman for the 24-request Tasks 1–5 regression run. For Task 6, use the separate nine-request `TaskFlow-AI.postman_collection.json` on a fresh server after setting your provider environment. Each collection cleans up its two synthetic tasks. Check the meaning of real model responses manually.
 - For additional HTTP verification, start a fresh server and run `python3 scripts/http_smoke.py` from a second terminal. It writes `docs/evidence/http-checks.json`.
 - Read [actual verification status](docs/evidence/verification.md) for execution results and outstanding learner actions. Expected results in the guide are not automatically completed checks.
 - Follow [finish today](docs/finish-today.md) for WSL setup, Postman, public GitHub publishing, and NTU Learn submission.
 - Consult the [requirement matrix](docs/requirements-matrix.md) to map each assessed requirement to source and evidence.
 
-## Scope and limitations
+## Storage and AI summary
 
-Tasks live only in this application's memory. A process restart or DevTools restart clears the map and resets the counter. The project starts empty; `docs/sample-tasks.csv` is an illustrative EDA fixture, not a seed import. There is no database, JPA, SQL, user authentication, frontend, or hosted API in this assignment baseline.
+TaskFlow stores tasks in an initialized HashMap, as required by the assignment. Tasks remain available while the application is running; restarting the application starts a fresh task list and resets the ID counter.
 
-Optional Task 6 is **not implemented**. There is no Spring AI dependency, summary endpoint, or API key requirement. The brief states Tasks 1–5 are enough to pass. No optional feature is claimed as completed.
+Task 6 reads the current list and uses Spring AI to produce a short summary of pending and completed work. It leaves task records unchanged. The sample CSV supports the EDA and is not loaded automatically.
+
+## Task 6 configuration and verification
+
+The repository contains the required safe configuration reference:
+
+```properties
+spring.ai.openai.api-key=${OPENAI_API_KEY}
+```
+
+Keep the real key in your private WSL Ubuntu `~/.bashrc`. [Task 6 setup and Postman steps](docs/task6-ai-summary.md) cover OpenAI and the OpenRouter configuration used in earlier practice. Continue using `mvn spring-boot:run` once the environment is configured.
+
+The implementation and offline tests are complete; a response from a live model using the learner's key remains to be checked. Local HTTP tests exercise the real Spring AI client against a provider simulator, not a real model. See [the Task 6 verification record](docs/evidence/task6-verification.md).
+
+An empty task list returns a direct statement of fact without a model call. A list above fifty tasks returns 413. Failed provider requests or blank provider output return 502. The fifty-task limit and fifteen-second client timeout are demonstration safeguards rather than assignment requirements.
 
 ## References and assistance
 
-The mandatory Word brief controls scope. Project scaffolding comes from [Spring Initializr](https://start.spring.io/); framework references are [Spring Boot](https://docs.spring.io/spring-boot/) and [Lombok](https://projectlombok.org/features/). Postman collection automation uses the [Newman runner](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/).
+The mandatory Word brief controls scope. Project scaffolding comes from [Spring Initializr](https://start.spring.io/); framework references are [Spring Boot](https://docs.spring.io/spring-boot/) and [Lombok](https://projectlombok.org/features/). Task 6 uses the official [Spring AI documentation](https://docs.spring.io/spring-ai/reference/). Postman collection automation uses the [Newman runner](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/).
 
 This package was prepared with ChatGPT assistance using the guide's examples, with additional documentation and executable verification. It is assisted reference work. The learner must review, understand, and adapt it in line with the assignment's instruction to write the code yourself and any instructor rules. No independent authorship or completed NTU Learn submission is asserted here.

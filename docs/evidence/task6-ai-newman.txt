@@ -1,0 +1,67 @@
+(node:103) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+Module 3 TaskFlow Task 6 AI Summary
+
+→ 01 Create pending task
+  POST http://127.0.0.1:54665/api/tasks [201 Created, 260B, 33ms]
+  ✓  HTTP 201
+
+→ 02 Create completed task
+  POST http://127.0.0.1:54665/api/tasks [201 Created, 247B, 7ms]
+  ✓  HTTP 201
+
+→ 03 Summarize mixed task states
+  GET http://127.0.0.1:54665/api/tasks/summary [200 OK, 236B, 1215ms]
+  ✓  HTTP 200
+  ✓  Plain-English text response
+
+→ 04 Complete the pending task
+  PUT http://127.0.0.1:54665/api/tasks/5/complete [200 OK, 222B, 7ms]
+  ✓  HTTP 200
+  ✓  Completion saved
+
+→ 05 Summarize completed work
+  GET http://127.0.0.1:54665/api/tasks/summary [200 OK, 236B, 14ms]
+  ✓  HTTP 200
+  ✓  Plain-English text response
+
+→ 06 Check summary did not change tasks
+  GET http://127.0.0.1:54665/api/tasks [200 OK, 280B, 7ms]
+  ✓  HTTP 200
+  ✓  Both stored tasks remain complete
+
+→ 07 Delete first test task
+  DELETE http://127.0.0.1:54665/api/tasks/5 [200 OK, 192B, 7ms]
+  ✓  HTTP 200
+
+→ 08 Delete second test task
+  DELETE http://127.0.0.1:54665/api/tasks/6 [200 OK, 192B, 5ms]
+  ✓  HTTP 200
+
+→ 09 Check empty task summary
+  GET http://127.0.0.1:54665/api/tasks/summary [200 OK, 216B, 6ms]
+  ✓  HTTP 200
+  ✓  Plain-English text response
+  ✓  Empty-list statement
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  9 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                  9 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  0 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 15 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 1481ms                                        │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 562B (approx)                                │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 144ms [min: 5ms, max: 1215ms, s.d.: 378ms] │
+└───────────────────────────────────────────────────────────────────┘

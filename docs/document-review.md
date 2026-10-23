@@ -17,7 +17,7 @@ The mandatory Word brief specifies TaskFlow, an in-memory task API. The supplied
 | HTTP | Six specified routes | Exact paths and methods preserved |
 | Success codes | 201 create and 200 for the rest | DELETE returns 200 |
 | Testing | Test every endpoint in Postman | Runnable Postman collection plus service and HTTP checks |
-| Spring AI | Optional better-score step | Omitted from mandatory baseline |
+| Spring AI | Optional better-score step | Implemented as Task 6; live-provider verification pending |
 | Submission | Public GitHub URL on NTU Learn | Final account actions remain explicit in checklist |
 | EDA | Not requested | Add concise context and synthetic-data analysis |
 
@@ -33,7 +33,7 @@ HTTP testing found a version-specific JSON issue: the generated Spring Boot 4.1.
 
 Postman procedures in a document are not evidence that requests were sent. The exported collection can be run directly; any Newman execution is labelled as the Postman command-line runner rather than desktop screenshots. The learner should also run and inspect requests in Postman, as the brief directs.
 
-The guide's optional AI example must not be copied into the baseline without compatible dependencies and provider configuration. Omitting it keeps the mandatory project keyless. No optional summary behaviour is claimed.
+Task 6 was added using the compatible Spring AI BOM and OpenAI starter selected by Spring Initializr. Its ChatClient uses environment configuration; the project holds no real provider key. Automated tests use model doubles and a local HTTP provider simulator. A genuine provider response remains to be verified in the learner environment.
 
 The sample Git commands must use the actual GitHub owner and repository. Sample attribution to another tool should not be copied unless factually accurate. No GitHub URL should be described as submitted until NTU Learn confirms it.
 

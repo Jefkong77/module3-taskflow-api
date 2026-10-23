@@ -1,0 +1,566 @@
+{
+  "passed": true,
+  "provider": "Local OpenAI-compatible simulator, not a live AI model",
+  "live_provider_verification": "pending",
+  "collections": [
+    {
+      "collection": "crud",
+      "stats": {
+        "iterations": {
+          "total": 1,
+          "pending": 0,
+          "failed": 0
+        },
+        "items": {
+          "total": 24,
+          "pending": 0,
+          "failed": 0
+        },
+        "scripts": {
+          "total": 24,
+          "pending": 0,
+          "failed": 0
+        },
+        "prerequests": {
+          "total": 24,
+          "pending": 0,
+          "failed": 0
+        },
+        "requests": {
+          "total": 24,
+          "pending": 0,
+          "failed": 0
+        },
+        "tests": {
+          "total": 24,
+          "pending": 0,
+          "failed": 0
+        },
+        "assertions": {
+          "total": 38,
+          "pending": 0,
+          "failed": 0
+        },
+        "testScripts": {
+          "total": 24,
+          "pending": 0,
+          "failed": 0
+        },
+        "prerequestScripts": {
+          "total": 0,
+          "pending": 0,
+          "failed": 0
+        }
+      },
+      "requests": [
+        {
+          "name": "01 List tasks",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "List is an array",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "02 Create first task",
+          "method": "POST",
+          "status": 201,
+          "assertions": [
+            {
+              "name": "HTTP 201",
+              "passed": true
+            },
+            {
+              "name": "Generated ID and trimmed title",
+              "passed": true
+            },
+            {
+              "name": "Location points to created task",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "03 Create second task",
+          "method": "POST",
+          "status": 201,
+          "assertions": [
+            {
+              "name": "HTTP 201",
+              "passed": true
+            },
+            {
+              "name": "Second generated ID is different",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "04 List both created tasks",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Both tasks are stored",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "05 Get first task",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "ID matches",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "06 Update first task",
+          "method": "PUT",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Update preserves path ID",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "07 Complete first task",
+          "method": "PUT",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Completed flag is true",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "08 Complete first task again",
+          "method": "PUT",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Repeated completion stays true",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "09 Read saved completion",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Completion was saved",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "10 Delete first task",
+          "method": "DELETE",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Deletion confirmation",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "11 Read deleted task",
+          "method": "GET",
+          "status": 404,
+          "assertions": [
+            {
+              "name": "HTTP 404",
+              "passed": true
+            },
+            {
+              "name": "Readable error",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "12 Read missing",
+          "method": "GET",
+          "status": 404,
+          "assertions": [
+            {
+              "name": "HTTP 404",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "13 Update missing",
+          "method": "PUT",
+          "status": 404,
+          "assertions": [
+            {
+              "name": "HTTP 404",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "14 Delete missing",
+          "method": "DELETE",
+          "status": 404,
+          "assertions": [
+            {
+              "name": "HTTP 404",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "15 Complete missing",
+          "method": "PUT",
+          "status": 404,
+          "assertions": [
+            {
+              "name": "HTTP 404",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "16 Reject blank title",
+          "method": "POST",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            },
+            {
+              "name": "Blank title explained",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "17 Reject missing title",
+          "method": "POST",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "18 Reject overlong title",
+          "method": "POST",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "19 Reject malformed JSON",
+          "method": "POST",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "20 Reject nonnumeric ID",
+          "method": "GET",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "21 Reject zero ID",
+          "method": "GET",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "22 Reject invalid update",
+          "method": "PUT",
+          "status": 400,
+          "assertions": [
+            {
+              "name": "HTTP 400",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "23 Check rejected update did not change task",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Original state preserved",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "24 Delete second task",
+          "method": "DELETE",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "collection": "ai",
+      "stats": {
+        "iterations": {
+          "total": 1,
+          "pending": 0,
+          "failed": 0
+        },
+        "items": {
+          "total": 9,
+          "pending": 0,
+          "failed": 0
+        },
+        "scripts": {
+          "total": 9,
+          "pending": 0,
+          "failed": 0
+        },
+        "prerequests": {
+          "total": 9,
+          "pending": 0,
+          "failed": 0
+        },
+        "requests": {
+          "total": 9,
+          "pending": 0,
+          "failed": 0
+        },
+        "tests": {
+          "total": 9,
+          "pending": 0,
+          "failed": 0
+        },
+        "assertions": {
+          "total": 15,
+          "pending": 0,
+          "failed": 0
+        },
+        "testScripts": {
+          "total": 9,
+          "pending": 0,
+          "failed": 0
+        },
+        "prerequestScripts": {
+          "total": 0,
+          "pending": 0,
+          "failed": 0
+        }
+      },
+      "requests": [
+        {
+          "name": "01 Create pending task",
+          "method": "POST",
+          "status": 201,
+          "assertions": [
+            {
+              "name": "HTTP 201",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "02 Create completed task",
+          "method": "POST",
+          "status": 201,
+          "assertions": [
+            {
+              "name": "HTTP 201",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "03 Summarize mixed task states",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Plain-English text response",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "04 Complete the pending task",
+          "method": "PUT",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Completion saved",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "05 Summarize completed work",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Plain-English text response",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "06 Check summary did not change tasks",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Both stored tasks remain complete",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "07 Delete first test task",
+          "method": "DELETE",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "08 Delete second test task",
+          "method": "DELETE",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            }
+          ]
+        },
+        {
+          "name": "09 Check empty task summary",
+          "method": "GET",
+          "status": 200,
+          "assertions": [
+            {
+              "name": "HTTP 200",
+              "passed": true
+            },
+            {
+              "name": "Plain-English text response",
+              "passed": true
+            },
+            {
+              "name": "Empty-list statement",
+              "passed": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "provider_requests": [
+    {
+      "path": "/v1/chat/completions",
+      "task_data": "Completed: 1\nPending: 1\nTask data (id | status | title):\n5 | PENDING | Review assignment requirements\n6 | DONE | Build the task API",
+      "simulated_response": "1 tasks completed and 1 pending. This is a local provider test response."
+    },
+    {
+      "path": "/v1/chat/completions",
+      "task_data": "Completed: 2\nPending: 0\nTask data (id | status | title):\n5 | DONE | Review assignment requirements\n6 | DONE | Build the task API",
+      "simulated_response": "2 tasks completed and 0 pending. This is a local provider test response."
+    }
+  ]
+}

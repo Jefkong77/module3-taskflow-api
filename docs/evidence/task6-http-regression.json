@@ -1,0 +1,289 @@
+{
+  "passed": true,
+  "base_url": "http://127.0.0.1:54665",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/tasks",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 201,
+      "actual_status": 201,
+      "response": {
+        "id": 1,
+        "title": "First task",
+        "completed": false
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 201,
+      "actual_status": 201,
+      "response": {
+        "id": 2,
+        "title": "Second task",
+        "completed": false
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": [
+        {
+          "id": 1,
+          "title": "First task",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "title": "Second task",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/1",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "id": 1,
+        "title": "First task",
+        "completed": false
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tasks/1",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "id": 1,
+        "title": "Updated task",
+        "completed": false
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tasks/1/complete",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "id": 1,
+        "title": "Updated task",
+        "completed": true
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tasks/1/complete",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "id": 1,
+        "title": "Updated task",
+        "completed": true
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/1",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "id": 1,
+        "title": "Updated task",
+        "completed": true
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task title must not be blank",
+        "instance": "/api/tasks",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task title must not be blank",
+        "instance": "/api/tasks",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task title must not be blank",
+        "instance": "/api/tasks",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task title must be at most 200 characters",
+        "instance": "/api/tasks",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Request body must contain valid task JSON",
+        "instance": "/api/tasks",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/abc",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task ID must be a positive integer",
+        "instance": "/api/tasks/abc",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/0",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task ID must be a positive integer",
+        "instance": "/api/tasks/0",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/-1",
+      "expected_status": 400,
+      "actual_status": 400,
+      "response": {
+        "detail": "Task ID must be a positive integer",
+        "instance": "/api/tasks/-1",
+        "status": 400,
+        "title": "Bad Request"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/999999999",
+      "expected_status": 404,
+      "actual_status": 404,
+      "response": {
+        "detail": "Task 999999999 was not found",
+        "instance": "/api/tasks/999999999",
+        "status": 404,
+        "title": "Not Found"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tasks/999999999",
+      "expected_status": 404,
+      "actual_status": 404,
+      "response": {
+        "detail": "Task 999999999 was not found",
+        "instance": "/api/tasks/999999999",
+        "status": 404,
+        "title": "Not Found"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tasks/999999999",
+      "expected_status": 404,
+      "actual_status": 404,
+      "response": {
+        "detail": "Task 999999999 was not found",
+        "instance": "/api/tasks/999999999",
+        "status": 404,
+        "title": "Not Found"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/tasks/999999999/complete",
+      "expected_status": 404,
+      "actual_status": 404,
+      "response": {
+        "detail": "Task 999999999 was not found",
+        "instance": "/api/tasks/999999999/complete",
+        "status": 404,
+        "title": "Not Found"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tasks/1",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "message": "Task 1 deleted"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/1",
+      "expected_status": 404,
+      "actual_status": 404,
+      "response": {
+        "detail": "Task 1 was not found",
+        "instance": "/api/tasks/1",
+        "status": 404,
+        "title": "Not Found"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tasks/2",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": {
+        "message": "Task 2 deleted"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks",
+      "expected_status": 200,
+      "actual_status": 200,
+      "response": []
+    }
+  ]
+}

@@ -68,7 +68,7 @@ The final completion gate also includes the learner's Postman checks, a working 
 
 ## Limitations and possible continuation
 
-Restarting the process or triggering a DevTools restart clears tasks and resets IDs. There is no database, user ownership, or authentication. These limits match the exercise scope. Optional Task 6 is not implemented in this baseline; no AI key is needed.
+Restarting the process or triggering a DevTools restart clears tasks and resets IDs. There is no database, user ownership, or authentication. These limits match the exercise scope. Task 6 now adds a read-only Spring AI summary of the stored tasks. The real provider key belongs in the private shell environment. Its code and local-provider contract tests are implemented; live-model verification remains pending.
 
 A later learning project could replace storage with PostgreSQL and add a React task screen. Such work should follow the assessed submission. Opportunity records and Task records have different schemas and resource paths, so a TaskFlow URL cannot directly replace the India Opportunity Navigator opportunity API.
 

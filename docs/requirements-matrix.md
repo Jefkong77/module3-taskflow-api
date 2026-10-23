@@ -23,6 +23,6 @@ The Word assignment is the authority. Supporting safeguards are labelled separat
 | Test every endpoint in Postman | docs/postman/TaskFlow.postman_collection.json | Import and run in Postman; record result |
 | Public GitHub repository | docs/finish-today.md | Verify public URL after push |
 | Submit URL to NTU Learn | docs/finish-today.md | Save submission acknowledgement |
-| Optional Task 6 | Not implemented in mandatory baseline | Explicitly optional in brief; not claimed complete |
+| Task 6 Spring AI summary | TaskSummaryController, TaskSummaryService, Spring AI starter and environment-key reference | Code and local-provider contract verified; live response pending |
 
 Additional choices: title validation, readable 400/404 errors, deterministic ordering, defensive copies, and automated tests. These support the assignment without changing its model, in-memory storage, or required success codes.

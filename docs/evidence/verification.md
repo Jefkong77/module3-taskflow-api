@@ -35,7 +35,7 @@ Public GitHub repository: https://github.com/Jefkong77/module3-taskflow-api. Rep
 
 NTU Learn was not accessed and no submission acknowledgement was obtained. The assignment is not submitted yet. Finish the account actions in `../finish-today.md` after reviewing and adapting the implementation.
 
-Optional Spring AI was not implemented or tested. No provider key or external model request was used.
+This record documents the earlier Tasks 1–5 baseline. Task 6 has since been implemented. Read `task6-verification.md` in this folder for the current test results and the outstanding live-provider check. No instructor or NTU Learn submission has been made.
 
 ## Final learner checklist
 
