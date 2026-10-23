@@ -8,15 +8,14 @@ Repository: [Jefkong77/module3-taskflow-api](https://github.com/Jefkong77/module
 
 The task numbers match the Module 3 assignment. Files are organised by their model, repository, service, or controller layer.
 
-| Task | Layer or purpose | Source file or folder | Responsibility |
+| Task | Requirement | Location | Responsibility |
 | --- | --- | --- | --- |
-| Task 1 | Folder structure | [Application package](src/main/java/sg/edu/ntu/taskflowapi) | Contains the four required folders: model, repository, service, controller |
-| Task 2 | Model | [Task.java](src/main/java/sg/edu/ntu/taskflowapi/model/Task.java) | Holds id, title, and completed; Lombok generates getters, setters, and constructors |
-| Task 3 | Repository | [TaskRepository.java](src/main/java/sg/edu/ntu/taskflowapi/repository/TaskRepository.java) | Stores tasks in an initialized HashMap and generates IDs |
-| Task 4 | Service | [TaskService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Validates input and implements the six task operations |
-| Task 5 | Controller | [TaskController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskController.java) | Maps the six task endpoints to service methods |
-| Task 6 | AI summary service | [TaskSummaryService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Reads tasks, prepares the prompt, and calls ChatClient |
-| Task 6 | AI summary controller | [TaskSummaryController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Exposes GET /api/tasks/summary as plain text |
+| 1 | Create four layer folders | `model`, `repository`, `service`, `controller` | Organises task data, storage, business logic, and HTTP endpoints into separate layers |
+| 2 | Model | [model/Task.java](src/main/java/sg/edu/ntu/taskflowapi/model/Task.java) | Holds id, title, and completed; Lombok generates getters, setters, and constructors |
+| 3 | Repository | [repository/TaskRepository.java](src/main/java/sg/edu/ntu/taskflowapi/repository/TaskRepository.java) | Stores tasks in an initialized HashMap and generates IDs |
+| 4 | Service | [service/TaskService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Validates input and implements the six task operations |
+| 5 | Controller | [controller/TaskController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskController.java) | Maps the six task endpoints to service methods |
+| 6 | Spring AI summary | [service/TaskSummaryService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) and [controller/TaskSummaryController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Reads current tasks, calls ChatClient, and returns a plain-English summary through GET /api/tasks/summary |
 
 Supporting files:
 
