@@ -1,40 +1,58 @@
-# Review of the supplied Module 3 documents
+# TaskFlow design rationale
 
-## Main conclusion
+## Assignment scope
 
-The mandatory Word brief specifies TaskFlow, an in-memory task API. The supplied Markdown guide correctly puts this assignment ahead of the separate India Opportunity Navigator extension. The guide is useful implementation support; its broader roadmap is not part of the assessed scope.
+The Module 3 specification defines a task-management API with a plain Task model, collection-based storage, a service, and six task endpoints. Task 6 adds a Spring AI summary endpoint. The implementation follows these requirements within the package `sg.edu.ntu.taskflowapi`.
 
-## Requirements and decisions
+## Layers and dependency direction
 
-| Topic | Mandatory brief | Decision for this package |
+| Layer | Classes | Responsibility |
 | --- | --- | --- |
-| Scope | Task management backend | Implement TaskFlow only |
-| Stack | Maven Java 21 stable Spring Boot Jar | Generated using Spring Initializr stable 4.1.2 |
-| Layers | controller model service repository | Exact package and four required folders |
-| Data | Plain Task POJO and Lombok | id title completed only |
-| Storage | ArrayList or HashMap and generated IDs | Initialized HashMap and counter |
-| Service | Six named operations and constructor injection | Exact six names implemented |
-| HTTP | Six specified routes | Exact paths and methods preserved |
-| Success codes | 201 create and 200 for the rest | DELETE returns 200 |
-| Testing | Test every endpoint in Postman | Runnable Postman collection plus service and HTTP checks |
-| Spring AI | Optional better-score step | Task 6 summary endpoint, provider configuration, and automated integration checks |
-| Submission | Public GitHub URL on NTU Learn | Public repository URL and submission procedure documented |
-| EDA | Not requested | Add concise context and synthetic-data analysis |
+| Model | Task | Holds task data using Lombok-generated accessors and constructors |
+| Repository | TaskRepository | Owns the initialized HashMap, generated IDs, and storage methods |
+| Service | TaskService; TaskSummaryService | Implements task operations, validation, and summary generation |
+| Controller | TaskController; TaskSummaryController; ApiExceptionHandler | Maps requests, selects response codes, and formats errors |
 
-## What was retained from the guide
+Controllers receive services through constructors. TaskService receives TaskRepository through its constructor. TaskSummaryService receives TaskService and ChatClient.Builder. Spring supplies these dependencies; the model remains a plain Java object with no Spring annotations.
 
-The implementation follows the required model, repository, service, and controller structure. The repository uses defensive copies, generated IDs, and sorted output. Validation and readable errors support testing. The controller and service use explicit constructors so the dependency flow is visible.
+The application entry point sits above the four layer packages so component scanning covers the controllers, services, and repository. Direct source links are in the [README](../README.md#source-code-read-in-this-order).
 
-## What needed execution or care
+## Storage decisions
 
-The generated project includes executable test procedures and execution records in `evidence/verification.md` and `evidence/task6-verification.md`.
+HashMap keys are generated Long IDs. The collection is initialized when the repository is constructed. A counter allocates a new ID for each creation, independently of IDs supplied by clients.
 
-HTTP testing found a version-specific JSON issue: the generated Spring Boot 4.1.2 stack rejected a creation body that omitted the primitive completed flag. The final application sets `spring.jackson.deserialization.fail-on-null-for-primitives=false` to preserve the documented false default. The omission scenario is included in both the Python HTTP checks and the Postman collection. This is why compiling and service tests alone were not sufficient.
+Returning copies prevents changes to returned Java objects from silently changing stored tasks. List responses are sorted by ID. Synchronized repository methods protect individual map operations and ID allocation. Multi-step service operations have application-level behaviour; the collection does not provide database transactions.
 
-The exported collections support interactive Postman runs and automated Newman runs. Saved Newman reports record request counts, assertions, and failures; the setup guide explains importing the same collections into Postman.
+An application or DevTools restart creates a fresh repository, empty storage, and a reset counter.
 
-Task 6 uses the compatible Spring AI BOM and OpenAI starter selected by Spring Initializr. Its ChatClient reads provider configuration from environment variables. Automated tests use model doubles and a local OpenAI-compatible HTTP test server for repeatable prompt, request, response, and error checks. Provider setup and Postman procedures are documented separately in `task6-ai-summary.md`.
+## Input and response decisions
 
-## EDA boundary
+| Situation | Behaviour |
+| --- | --- |
+| Task creation | 201, saved task, and Location header |
+| Other successful task operations | 200, including DELETE as specified in the brief |
+| Blank or missing title | 400 |
+| Title longer than 200 characters after trimming | 400 |
+| Invalid ID or malformed JSON | 400 |
+| Unknown positive task ID | 404 |
+| Repeated completion | completed remains true |
 
-There is no supplied empirical dataset and no requirement for Python notebooks, machine learning, or graphs. The EDA therefore states the business problem, user actions, schema, quality checks, lifecycle, and test coverage. Its six sample records are explicitly synthetic and are not loaded automatically into the API.
+Title trimming, the title-length limit, and readable errors supplement the required endpoint behaviour. ApiExceptionHandler represents errors using Spring ProblemDetail.
+
+The JSON configuration sets `spring.jackson.deserialization.fail-on-null-for-primitives=false`. This preserves the false default for an omitted or null completed value with the project's Spring Boot/Jackson version. PUT replaces title and completed together.
+
+## Spring AI integration
+
+Spring Boot 4.1.2 and Spring AI 2.0.1 are declared in [pom.xml](../pom.xml). The OpenAI starter supplies ChatClient.Builder. TaskSummaryService builds the client, reads task data through TaskService, and sends the current task list with completed and pending counts.
+
+The provider key, base URL, and model are read from environment variables. The prompt uses a literal UserMessage so braces in task titles remain data. The system instructions request a short summary and treat titles as untrusted input.
+
+Empty lists return a fixed factual message. A fifty-task limit bounds prompt size. The client timeout is fifteen seconds and retries are disabled. Failed provider requests and blank responses produce readable 502 errors. These safeguards are implementation choices.
+
+## Verification approach
+
+Service tests cover business behaviour. HTTP checks exercise routing and JSON binding. Postman collections cover the task API and summary flow. Summary unit tests use model doubles, while integration tests connect the Spring AI HTTP client to a local OpenAI-compatible test server. Reports and results are linked in [test results](evidence/verification.md).
+
+## Sources
+
+Requirements: `Module3_Assignment_mandatory (1) (2).docx`. Framework documentation is listed in the [README references](../README.md#references) and [Task 6 references](task6-ai-summary.md#references).

@@ -1,33 +1,44 @@
-# Task 6 verification record
+# Task 6 summary integration tests
 
-Execution date: 23 October 2026, Singapore time.
+Recorded execution: 23 October 2026, Singapore time.
 
-## Implemented behaviour
+## Test design
 
-GET /api/tasks/summary is registered as a literal route and returns text/plain. TaskSummaryService reads the stored tasks and uses an injected Spring AI ChatClient. Nonempty task lists are sent to the configured provider with completed and pending counts. The Task POJO, generated IDs, HashMap storage, and six original endpoint success codes are preserved.
+TaskSummaryServiceTest uses controlled model doubles to inspect prompt data and exercise service behaviour. TaskSummaryHttpTest runs the application on a random local port and connects the actual Spring AI HTTP client to an in-process OpenAI-compatible test server.
 
-Spring Initializr selected Spring AI 2.0.1 with Spring Boot 4.1.2. The application reads its provider credential through the assignment's environment reference: `spring.ai.openai.api-key=${OPENAI_API_KEY}`.
+The HTTP server supplies controlled responses at `/v1/chat/completions`. This design makes request serialization, response parsing, and error cases repeatable.
 
 ## Executed checks
 
-| Check | Result | Evidence |
+| Area | Case | Result |
 | --- | --- | --- |
-| Full Maven clean verify | 21 passed, no failures, errors, or skips | task6-maven-verify.txt |
-| Summary service tests | 5 passed | TaskSummaryServiceTest summary |
-| Summary HTTP tests through the real Spring AI client | 5 passed against a local provider simulator | TaskSummaryHttpTest summary |
-| Original API HTTP regression | 25 requests passed | task6-http-regression.json |
-| Original Postman collection | 24 requests, 38 assertions, no failures | task6-crud-newman.txt |
-| Task 6 Postman collection | 9 requests, 15 assertions, no failures against the simulator | task6-ai-newman.txt |
-| Provider request data | Two requests carried 1 done / 1 pending, then 2 done / 0 pending | task6-postman-summary.json |
-| Missing or blank provider result | Readable HTTP 502, no provider diagnostic leakage | Summary service and HTTP tests |
-| Empty list and size limit | 200 empty-list fact and 413 above fifty tasks, without model calls | Summary service and HTTP tests |
+| Prompt data | Task IDs, titles, states, completed count, and pending count | Passed |
+| Literal titles | Braces in titles remain task data | Passed |
+| Successful response | GET /api/tasks/summary returns 200 and text/plain | Passed |
+| Stored state | Summary leaves task records unchanged | Passed |
+| Empty task list | 200 with a factual empty-list message | Passed |
+| Size limit | More than fifty tasks returns 413 | Passed |
+| Provider error | Provider failure becomes readable 502 | Passed |
+| Blank output | Empty provider content becomes readable 502 | Passed |
+| Error details | HTTP response excludes provider diagnostics | Passed |
 
-The 21 tests comprise ten existing task-service tests, one context test, five summary-service tests, and five summary HTTP tests. Context and HTTP tests use explicitly non-secret test placeholders. The summary HTTP tests exercise actual Spring AI request serialization and response parsing through a local OpenAI-compatible endpoint.
+Five summary-service tests and five summary HTTP tests passed. The complete Maven build passed 21 tests with zero failures, errors, or skips.
 
-The Postman collections were executed by Newman against the packaged application with a local OpenAI-compatible test server. The reports record simulated provider responses for repeatable checks of the integration contract.
+## Postman collection run through Newman
 
-## Runtime configuration and Postman procedure
+The nine-request AI collection ran against the packaged application with the local test server. All fifteen assertions passed. The collection created two synthetic tasks, requested a summary, completed the pending task, requested another summary, deleted both records, and checked the empty-list response.
 
-Provider configuration and step-by-step Postman instructions are in [Task 6 setup](../task6-ai-summary.md). The application reads OPENAI_API_KEY, OPENAI_BASE_URL, and OPENAI_MODEL from the shell environment. Credentials stay outside the repository.
+The captured provider requests contained completed/pending counts of 1/1 followed by 2/0. The [saved summary report](task6-postman-summary.json) contains the request data and explicitly labelled simulated response text.
 
-For a provider run, create one pending task and one completed task, request the summary, and compare its meaning with GET /api/tasks. After marking the pending task complete, the next summary should describe two completed tasks and zero pending tasks. Exact wording varies by model.
+## Reports
+
+| Report | Contents |
+| --- | --- |
+| [Summary service tests](sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest.txt) | Five service-test results |
+| [Summary HTTP tests](sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest.txt) | Five integration-test results |
+| [Maven build](task6-maven-verify.txt) | Complete 21-test build and packaging output |
+| [AI collection run](task6-ai-newman.txt) | Nine requests and fifteen assertions |
+| [Provider-contract data](task6-postman-summary.json) | Captured task data and controlled responses |
+| [CRUD regression](task6-crud-newman.txt) | Twenty-four requests and thirty-eight assertions |
+
+Provider configuration and interactive Postman procedures are documented in the [Task 6 guide](../task6-ai-summary.md).

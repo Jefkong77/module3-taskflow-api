@@ -1,21 +1,12 @@
-# TaskFlow local setup, testing, and submission procedure
+# TaskFlow local development and Postman procedures
 
-## Milestones
+## Environment
 
-| Activity | Suggested time | Result |
-| --- | --- | --- |
-| Review context and understand four layers | 15 minutes | Explain one request from controller to repository |
-| Read each source file | 30–45 minutes | Trace the implementation of Tasks 1–6 |
-| Build locally in VS Code WSL Ubuntu | 10–20 minutes | Java 21 and successful Maven output |
-| Test all routes in Postman | 20–30 minutes | Six task routes and the Task 6 summary route |
-| Push and verify public GitHub URL | 10–15 minutes | Public repository containing complete source |
-| Submit on NTU Learn | 5–10 minutes | Submission acknowledgement |
+Use JDK 21 and Maven in WSL Ubuntu. The first dependency download requires internet access. Postman sends requests while the Spring Boot server is running.
 
-Allow extra time for dependency downloads. Follow [Task 6 setup](task6-ai-summary.md) for provider configuration and summary testing.
+## Clone and open
 
-## 1 Open the project in WSL Ubuntu
-
-The public repository is available at https://github.com/Jefkong77/module3-taskflow-api. In a WSL Ubuntu terminal, clone it and open the project in VS Code:
+From a WSL Ubuntu terminal:
 
 ```bash
 mkdir -p ~/projects/module3
@@ -23,86 +14,76 @@ cd ~/projects/module3
 git clone https://github.com/Jefkong77/module3-taskflow-api.git
 cd module3-taskflow-api
 code .
+```
+
+For an existing clone, open its project folder instead. The VS Code Explorer should show pom.xml and src at the root.
+
+Confirm the Java environment:
+
+```bash
 java -version
 mvn -version
 ```
 
-Both Java and Maven must report Java 21. Use your installed Maven as in class; the generated Maven Wrapper remains available if the `mvn` command is unavailable. The first build needs internet access for dependencies. If the clone folder already exists, open it and inspect `git status` before pulling changes.
+Both commands should identify Java 21. Application source is under `src/main/java/sg/edu/ntu/taskflowapi`. Configuration is under `src/main/resources`. The [source-code table](../README.md#source-code-read-in-this-order) links each class.
 
-The Explorer should show `pom.xml`, `mvnw`, and `src` at the project root. Open the whole project folder in WSL Ubuntu, separately from the earlier simple-crm project.
+## Provider configuration
 
-## 2 Review the code and build
+The application reads OPENAI_API_KEY from the shell environment. The [Task 6 provider configuration](task6-ai-summary.md#provider-configuration) documents the assignment's ~/.bashrc setup and the OpenAI and OpenRouter settings.
 
-Use the [README source-code table](../README.md#source-code-read-in-this-order) for direct file links. Read `Task.java`, then `TaskRepository.java`, `TaskService.java`, and `TaskController.java`. Continue with `ApiExceptionHandler.java`, `application.properties`, and the two Task 6 classes. Java application files are under `src/main/java/sg/edu/ntu/taskflowapi`; configuration is under `src/main/resources`.
+## Build and start
+
+From the project root:
 
 ```bash
 mvn clean verify
 mvn spring-boot:run
 ```
 
-The second command keeps running. Leave this terminal open while testing. Configure the private provider environment in `task6-ai-summary.md` before ordinary application startup. These are the installed Maven commands used in class and specified in the brief. If Maven is unavailable, the wrapper alternatives are `./mvnw clean verify` and `./mvnw spring-boot:run`. A fresh `GET http://localhost:8080/api/tasks` should return 200 and `[]`.
+The verify goal runs the automated tests and packages the application. The second command starts the server and keeps the terminal occupied. Leave it running during Postman requests; Ctrl+C stops it.
 
-If 8080 is already used by another lesson:
+The generated Maven Wrapper provides the same goals through `./mvnw clean verify` and `./mvnw spring-boot:run` in WSL. In Windows PowerShell the wrapper is `.\mvnw.cmd`.
+
+The default base URL is `http://localhost:8080`. A fresh application returns 200 and an empty array from GET `/api/tasks`.
+
+For another local port:
 
 ```bash
 PORT=8081 mvn spring-boot:run
 ```
 
-Use 8081 in Postman too. Do not stop an unrelated process.
+Set the Postman baseUrl to `http://localhost:8081` for that run.
 
-## 3 Test in Postman
+## Postman collection setup
 
 1. Open Postman and select Import.
-2. Import `docs/postman/TaskFlow.postman_collection.json`.
-3. Import `docs/postman/TaskFlow-Local.postman_environment.json` and select TaskFlow Local.
-4. Confirm `baseUrl` is `http://localhost:8080`, or your chosen port.
-5. Run the collection in order with the local server running. The collection captures generated IDs automatically and cleans up its two tasks.
-6. Check every status and test result. Retain the run results. For manual POST/PUT requests choose Body, raw, JSON.
-7. Save Postman results for POST 201, list 200, read 200, update 200, complete 200, and DELETE 200. Follow the separate Task 6 guide for the summary requests.
-8. Stop and restart the app. GET all should now return an empty array. This proves expected in-memory behaviour.
+2. Import [TaskFlow.postman_collection.json](postman/TaskFlow.postman_collection.json).
+3. Import [TaskFlow-Local.postman_environment.json](postman/TaskFlow-Local.postman_environment.json).
+4. Select the TaskFlow Local environment and confirm baseUrl matches the running server.
+5. Open the collection runner and run requests in order. The collection captures generated IDs and removes its two test records.
 
-Example creation body:
+The CRUD collection contains 24 requests covering success responses, validation errors, missing IDs, completion, and stored state. The separate [AI collection](postman/TaskFlow-AI.postman_collection.json) contains nine requests; its procedure is in the [Task 6 guide](task6-ai-summary.md#postman-collection).
+
+## Manual request example
+
+Create a request with method POST and URL `http://localhost:8080/api/tasks`. Select Body, then raw, then JSON. Send:
 
 ```json
-{"title":"Test the TaskFlow API","completed":false}
+{"title":"Prepare the meeting agenda","completed":false}
 ```
 
-The URL is `http://localhost:8080` plus `@RequestMapping("/api/tasks")`, with any method path appended. It is defined in the controller and server configuration, not in Postman itself.
+The response is 201 and includes a generated ID. Use that returned ID for subsequent GET, PUT, completion, and DELETE requests. The [API contract](../README.md#api-contract) lists the paths and response codes.
 
-## 4 GitHub publication and later changes
+The full URL combines the server address and port with the controller's `/api/tasks` mapping and any method-specific path.
 
-The public repository has been created under Jefkong77 and the source and supporting documents are published at:
+## Test reports
 
-https://github.com/Jefkong77/module3-taskflow-api
+The collection runner displays request statuses and assertion results. Postman run exports and request/response captures can be saved alongside the task inputs used for a run. [Recorded test results](evidence/verification.md) link the build, HTTP, and Newman reports.
 
-The repository root contains README, pom.xml, the Maven wrapper, source, tests, EDA, Postman files, and verification evidence. Build output in `target` and downloaded tools are excluded.
-
-To publish local changes from a clone, inspect and commit them using:
+The additional HTTP script runs from a second terminal while a fresh server is running:
 
 ```bash
-git status --short
-git diff
-git add .
-git diff --cached --stat
-git commit -m "Update TaskFlow implementation and test evidence"
-git push
+python3 scripts/http_smoke.py
 ```
 
-Commit when there are changes to record. Authenticate through the normal GitHub sign-in flow and keep access tokens outside project files. Use the configured Git author identity for the account.
-
-## 5 Submit to NTU Learn
-
-When ready to submit, open the Module 3 mandatory assignment submission, paste the public GitHub repository URL, submit, and retain the acknowledgement. The required address is the public repository URL.
-
-The repository URL is the required submission. EDA is inside the repository as supporting context for Ms. Sanjela. No external hosting or video is required by the supplied brief.
-
-## Explain the implementation
-
-- Task is data; Lombok generates ordinary Java boilerplate.
-- The repository owns the initialized HashMap and generates IDs.
-- The service owns validation and calls the repository.
-- The controller maps URLs and HTTP methods and calls the service.
-- Constructor injection lets Spring supply dependencies and supports direct service tests.
-- POST creates a resource and returns 201. The brief specifies 200 for the other successful operations, including DELETE.
-- Completion sets true and saves; it does not toggle the flag.
-- A restart clears data because no database is used.
+It writes `docs/evidence/http-checks.json`. It is a separate HTTP regression tool alongside the Postman collections.

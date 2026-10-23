@@ -1,7 +1,7 @@
 id,title,completed
-1,Read the TaskFlow assignment,true
-2,Create the Task model,true
-3,Implement the in-memory repository,true
-4,Test every endpoint in Postman,false
-5,Publish the public GitHub repository,false
-6,Submit the repository URL to NTU Learn,false
+1,Plan the project kickoff,true
+2,Draft the project timeline,true
+3,Confirm the meeting agenda,true
+4,Send meeting invitations,false
+5,Review budget estimates,false
+6,Prepare meeting notes,false

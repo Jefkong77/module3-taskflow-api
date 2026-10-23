@@ -1,28 +1,29 @@
-# Mandatory requirement matrix
+# Module 3 requirement matrix
 
-The Word assignment is the authority. Supporting safeguards are labelled separately.
+Specification: `Module3_Assignment_mandatory (1) (2).docx`. Tasks 1–5 define the mandatory API. Task 6 is the additional Spring AI step.
 
-| Brief item | Implementation or evidence | Completion gate |
+| Requirement | Source | Implemented behaviour |
 | --- | --- | --- |
-| Maven Java 21 stable Spring Boot Jar | pom.xml and generated wrapper | Run mvn -version and mvn clean verify |
-| Group sg.edu.ntu artifact taskflow-api | pom.xml | Inspect generated metadata |
-| Spring Web Lombok DevTools | pom.xml | Inspect dependencies and compile |
-| Task 1 four folders | src/main/java/sg/edu/ntu/taskflowapi/{controller,model,service,repository} | Source inspection |
-| Task 2 plain POJO minimum three fields and Lombok | model/Task.java | No Spring annotations; constructor and JSON checks |
-| Task 3 initialized ArrayList or HashMap | repository/TaskRepository.java | HashMap initialized at field declaration |
-| Task 3 own IDs | repository/TaskRepository.java | Counter; two creates give distinct generated IDs |
-| Task 3 @Repository | repository/TaskRepository.java | Annotation present |
-| Task 4 @Service and constructor injection | service/TaskService.java | Constructor dependency; unit and context tests |
-| Task 4 findAllTasks and findTaskById | service/TaskService.java | Service and HTTP checks |
-| Task 4 createTask and updateTask | service/TaskService.java | Service and HTTP checks |
-| Task 4 deleteTask | service/TaskService.java | Service and HTTP checks |
-| Task 4 markTaskAsComplete sets true and saves | service/TaskService.java | Complete twice and read saved state |
-| Task 5 @RestController and /api/tasks | controller/TaskController.java | Six route checks |
-| Task 5 constructor injection | controller/TaskController.java | Service constructor dependency |
-| Task 5 POST 201 all other successful routes 200 | controller/TaskController.java | Includes DELETE 200 |
-| Test every endpoint in Postman | docs/postman/TaskFlow.postman_collection.json | Import and run in Postman; record result |
-| Public GitHub repository | docs/finish-today.md | Verify public URL after push |
-| Submit URL to NTU Learn | docs/finish-today.md | Save submission acknowledgement |
-| Task 6 Spring AI summary | TaskSummaryController, TaskSummaryService, Spring AI starter and environment-key reference | Automated contract checks in Task 6 verification; provider setup and Postman summary procedure in task6-ai-summary.md |
+| Maven, Java 21, Spring Boot, Jar packaging | [pom.xml](../pom.xml) | Java 21 Spring Boot Maven project with executable Jar packaging |
+| Group sg.edu.ntu; artifact taskflow-api | [pom.xml](../pom.xml) | Project coordinates match the brief |
+| Spring Web, Lombok, DevTools | [pom.xml](../pom.xml) | Required dependencies declared |
+| Task 1: four layer folders | [Application package](../src/main/java/sg/edu/ntu/taskflowapi) | model, repository, service, controller |
+| Task 2: plain Task POJO with Lombok | [Task.java](../src/main/java/sg/edu/ntu/taskflowapi/model/Task.java) | Long id, String title, boolean completed; Lombok data and constructor annotations; no Spring annotations |
+| Task 3: initialized collection and @Repository | [TaskRepository.java](../src/main/java/sg/edu/ntu/taskflowapi/repository/TaskRepository.java) | Initialized HashMap with generated counter IDs |
+| Task 4: @Service and constructor injection | [TaskService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Repository supplied through the constructor |
+| Task 4: findAllTasks and findTaskById | [TaskService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | List tasks and retrieve a task by ID |
+| Task 4: createTask and updateTask | [TaskService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Validate input and save task data |
+| Task 4: deleteTask | [TaskService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Delete an existing task |
+| Task 4: markTaskAsComplete | [TaskService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Find the task, set completed to true, and save |
+| Task 5: @RestController and constructor injection | [TaskController.java](../src/main/java/sg/edu/ntu/taskflowapi/controller/TaskController.java) | Service supplied through the constructor; base path /api/tasks |
+| Task 5: six routes and success codes | [API contract](../README.md#api-contract) | Exact methods and paths; POST 201 and the other five successes 200 |
+| Task 6: Spring AI dependency | [pom.xml](../pom.xml) | Spring AI BOM and OpenAI starter |
+| Task 6: injected ChatClient and summary | [TaskSummaryService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Constructor-injected ChatClient.Builder creates the client; current tasks and counts form the prompt |
+| Task 6: GET /api/tasks/summary | [TaskSummaryController.java](../src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Short plain-English response with text/plain content type |
+| Task 6: environment-based key | [application.properties](../src/main/resources/application.properties) | Exact reference spring.ai.openai.api-key=${OPENAI_API_KEY}; shell setup in the Task 6 guide |
+| Postman testing for every endpoint | [CRUD collection](postman/TaskFlow.postman_collection.json); [AI collection](postman/TaskFlow-AI.postman_collection.json) | Task operations, validation, completion, and summary flow |
+| Public repository URL as delivery format | [GitHub repository](https://github.com/Jefkong77/module3-taskflow-api) | Source, documentation, Postman files, and reports in one repository |
 
-Additional choices: title validation, readable 400/404 errors, deterministic ordering, defensive copies, and automated tests. These support the assignment without changing its model, in-memory storage, or required success codes.
+The brief specifies the public GitHub repository URL as the item submitted through NTU Learn.
+
+Additional implementation choices include title validation, readable HTTP errors, sorted list responses, defensive copies, and automated tests. [Test results](evidence/verification.md) record the executed checks; [design rationale](document-review.md) explains these choices.

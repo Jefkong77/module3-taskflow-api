@@ -1,137 +1,124 @@
-# Task 6 Spring AI task summary
+# Task 6 Spring AI summary endpoint
 
-Task 6 adds GET `/api/tasks/summary`. It reads the current task list, sends task titles and completion states through Spring AI, and returns a short plain-English summary. It is a read-only operation: it does not create, update, complete, or delete tasks.
+GET `/api/tasks/summary` returns a short plain-English account of completed and pending tasks. TaskSummaryController delegates to TaskSummaryService. The service reads the current tasks through TaskService and sends the titles, completion states, and counts to Spring AI ChatClient.
 
-Automated tests use model doubles and a local OpenAI-compatible test server to check prompts, request data, response parsing, and errors. The steps below configure a provider and exercise the summary through Postman.
+## Source files
 
-## Files and responsibilities
-
-| File | Role |
+| File | Responsibility |
 | --- | --- |
-| pom.xml | Spring AI 2.0.1 BOM and OpenAI starter from Spring Initializr for Spring Boot 4.1.2 |
-| controller/TaskSummaryController.java | Maps GET /api/tasks/summary and returns text/plain |
-| service/TaskSummaryService.java | Reads tasks, supplies the prompt to an injected ChatClient, and handles the response |
-| src/main/resources/application.properties | References the key and optional provider settings through environment variables |
-| service/TaskSummaryServiceTest.java | Tests prompt data, counts, empty lists, limits, and failures without a live provider |
-| controller/TaskSummaryHttpTest.java | Exercises the real Spring AI HTTP client against a local test provider |
+| [TaskSummaryController.java](../src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Maps the summary route and returns text/plain |
+| [TaskSummaryService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Builds the injected client, prepares the prompt, and handles results |
+| [application.properties](../src/main/resources/application.properties) | Reads provider settings from environment variables |
+| [pom.xml](../pom.xml) | Declares Spring AI 2.0.1 and its OpenAI starter |
+| [TaskSummaryServiceTest.java](../src/test/java/sg/edu/ntu/taskflowapi/service/TaskSummaryServiceTest.java) | Tests prompts and service behaviour with model doubles |
+| [TaskSummaryHttpTest.java](../src/test/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryHttpTest.java) | Tests the Spring AI HTTP integration with a local test server |
 
-Java files are under `src/main/java/sg/edu/ntu/taskflowapi` or the matching `src/test/java/sg/edu/ntu/taskflowapi` package. The Task POJO and HashMap repository remain the required assignment storage.
+## Request flow
 
-## 1 Review the request flow
+The summary route is a literal mapping under `/api/tasks`. The controller calls summarizeTasks. The service obtains a task snapshot through findAllTasks, counts completed and pending tasks, and creates a literal UserMessage containing task IDs, titles, and states.
 
-Postman sends GET `/api/tasks/summary`. Spring selects the literal summary route, rather than treating summary as a task ID. The controller calls the summary service. That service calls `findAllTasks`, counts completed and pending records, and supplies each task's ID, title, and status to ChatClient. The model's text is returned with HTTP 200.
+The constructor receives TaskService and ChatClient.Builder through Spring dependency injection. The system prompt asks for at most three short sentences, completed and pending counts, and a brief description of the work. It treats task titles as data and excludes invented tasks or deadlines. The returned text is trimmed before it is sent to the client. Stored tasks are unchanged.
 
-The constructor receives `ChatClient.Builder` through Spring dependency injection and builds the client. The prompt asks for at most three short sentences, supplies counts, treats titles as data, and prohibits invented tasks or deadlines. Task data is placed in a literal UserMessage so braces in a title are not interpreted as template placeholders.
+## Provider configuration
 
-This connects to Lessons 3.12 and 3.15 for Spring AI and prompting, and Lesson 3.14 for layering and constructor injection.
-
-## 2 Keep the real key in WSL Ubuntu
-
-Open the private shell configuration in your WSL Ubuntu terminal:
-
-```bash
-code ~/.bashrc
-```
-
-For an OpenAI account, add a line there using your own key:
-
-```bash
-export OPENAI_API_KEY='YOUR_REAL_OPENAI_KEY'
-```
-
-For the OpenRouter setup used in the earlier Spring AI practice, use these environment variables instead:
-
-```bash
-export OPENAI_API_KEY='YOUR_REAL_OPENROUTER_KEY'
-export OPENAI_BASE_URL='https://openrouter.ai/api/v1'
-export OPENAI_MODEL='openai/gpt-4o-mini'
-```
-
-These strings are placeholders. Replace the key only inside your private `~/.bashrc`, outside the repository. Use one provider configuration at a time and update existing exports rather than adding conflicting duplicates. The variable remains named OPENAI_API_KEY to match the assignment; its value must belong to the chosen provider. Keep real values out of chat, screenshots, Postman exports, and project files.
-
-Save the shell file, then reload it:
-
-```bash
-source ~/.bashrc
-```
-
-Check presence without displaying the value:
-
-```bash
-if [ -n "$OPENAI_API_KEY" ]; then
-    echo "API key is set"
-else
-    echo "API key is not set"
-fi
-```
-
-The project contains the assignment's exact safe reference:
+The assignment specifies environment-based configuration in WSL Ubuntu's `~/.bashrc`. The application contains this reference:
 
 ```properties
 spring.ai.openai.api-key=${OPENAI_API_KEY}
 ```
 
-Spring AI 2 uses `spring.ai.openai.chat.model` for the model setting. The configured base URL includes `/v1`; this version uses the official OpenAI SDK underneath. OpenRouter uses its own full compatible base URL shown above.
+Open the shell configuration:
 
-## 3 Build and start
+```bash
+code ~/.bashrc
+```
 
-From the project root in the same WSL Ubuntu terminal:
+For OpenAI, use:
+
+```bash
+export OPENAI_API_KEY='YOUR_OPENAI_API_KEY'
+export OPENAI_BASE_URL='https://api.openai.com/v1'
+export OPENAI_MODEL='gpt-4o-mini'
+```
+
+For OpenRouter, use:
+
+```bash
+export OPENAI_API_KEY='YOUR_OPENROUTER_API_KEY'
+export OPENAI_BASE_URL='https://openrouter.ai/api/v1'
+export OPENAI_MODEL='openai/gpt-4o-mini'
+```
+
+The key strings above are placeholders. Use the configuration for one provider, with its corresponding credential. Store the credential in the shell configuration outside the project. Update existing exports when changing providers.
+
+Save the file and reload the environment:
+
+```bash
+source ~/.bashrc
+```
+
+The optional OPENAI_BASE_URL and OPENAI_MODEL variables override the defaults in application.properties. This project uses `spring.ai.openai.chat.model` and a base URL containing `/v1`.
+
+## Build and start
+
+From the project root in the configured WSL Ubuntu terminal:
 
 ```bash
 mvn clean verify
 mvn spring-boot:run
 ```
 
-Automated tests supply their own test configuration and local model doubles. For ordinary application startup, set OPENAI_API_KEY in the shell environment first. Leave the server terminal running while testing in Postman.
+The automated tests supply their own controlled test configuration. Runtime requests use the provider settings from the shell environment. The default server address is `http://localhost:8080`.
 
-## 4 Test with two synthetic tasks
+## Postman collection
 
-Start with a fresh application so other task data is not included. In Postman, send POST to `http://localhost:8080/api/tasks` using Body, raw, JSON:
+Import [TaskFlow-AI.postman_collection.json](postman/TaskFlow-AI.postman_collection.json) and [TaskFlow-Local.postman_environment.json](postman/TaskFlow-Local.postman_environment.json). Select TaskFlow Local, confirm baseUrl matches the server, and run the nine requests in order against a fresh application.
+
+The collection uses two synthetic input records: one pending and one completed. It requests a summary, completes the pending task, requests another summary, checks stored state, deletes both records, and checks the empty-list response.
+
+| Stage | Expected behaviour |
+| --- | --- |
+| Two records with different completion states | Summary describes one completed and one pending task |
+| Pending record marked complete | Summary describes two completed and zero pending tasks |
+| GET all after summary | Task records retain their saved values |
+| Both test records deleted | Summary reports an empty task list |
+
+Postman scripts check status codes, content type, nonempty output, and stored state. Compare the returned text with the task titles and counts; model wording can vary.
+
+## Manual summary example
+
+Create two synthetic tasks with POST `/api/tasks` using Body, raw, JSON:
 
 ```json
-{"title":"Review assignment requirements","completed":false}
+{"title":"Prepare the meeting agenda","completed":false}
 ```
-
-Create a second task:
 
 ```json
-{"title":"Build the task API","completed":true}
+{"title":"Confirm the meeting venue","completed":true}
 ```
 
-Send GET to:
+Then send GET `http://localhost:8080/api/tasks/summary`. A successful response has status 200, Content-Type text/plain, and describes one completed task and one pending task. Use GET `/api/tasks` to inspect the source records.
 
-```text
-http://localhost:8080/api/tasks/summary
-```
-
-Expected: HTTP 200, Content-Type text/plain, and a short summary describing one completed task and one pending task. Example meaning: the API has been built, while reviewing the requirements is pending. Exact wording varies by model; manually check the counts and task meanings.
-
-Use the generated pending task ID with PUT `/api/tasks/{id}/complete`, then request the summary again. It should now describe two completed tasks and zero pending tasks. GET all tasks to confirm the summary itself did not alter records.
-
-## 5 Run the dedicated Postman collection
-
-Import `docs/postman/TaskFlow-AI.postman_collection.json` and the existing TaskFlow Local environment. Run the nine requests in order on a fresh server. The collection creates two synthetic tasks, requests two model summaries, marks the pending task complete, removes its two tasks, and checks the empty-list response. Its scripts verify HTTP status, response type, and nonempty output. Compare each summary's meaning with the stored task titles and counts.
-
-The original 24-request collection remains the Tasks 1–5 regression collection. The AI collection is separate because its nonempty-summary requests use the selected provider account.
-
-## 6 Understand empty lists and errors
+## Empty lists and errors
 
 | Situation | Behaviour |
 | --- | --- |
-| No tasks | 200 with a direct statement that nothing is pending or complete; no model call |
-| One to fifty tasks | Send the current list to the configured model and return its text |
-| More than fifty tasks | 413 with a readable limit message; no model call |
-| Provider request fails | 502 with a readable configuration or availability message |
-| Provider returns blank output | 502 rather than a fabricated summary |
+| Empty list | 200 with a fixed factual message |
+| One to fifty tasks | Send current task data to the configured model and return its summary |
+| More than fifty tasks | 413 with a limit message |
+| Failed provider request | 502 with a readable availability/configuration message |
+| Blank provider output | 502 with an empty-summary message |
 
-The fifty-task limit is an implementation safeguard, not an assignment rule. The client request timeout is fifteen seconds and client retries are disabled so an error does not trigger several repeated requests. A generated summary can still be inaccurate; stored task records are the reference for review.
+The fifty-task limit, fifteen-second timeout, and disabled retries are implementation safeguards. Provider diagnostics are excluded from HTTP error responses. The stored records provide the factual basis for interpreting generated text.
 
-Save the provider response and Postman run results together with the task list used for the check. This makes the summary's counts and meaning easy to compare with the source records.
+## Automated verification
+
+Summary unit tests use model doubles. HTTP integration tests and the recorded AI collection run use a local OpenAI-compatible test server with controlled response text. [Task 6 test results](evidence/task6-verification.md) link the reports and captured request data.
 
 ## References
 
-- [Spring AI getting started and compatibility](https://docs.spring.io/spring-ai/reference/getting-started.html)
+- [Spring AI getting started](https://docs.spring.io/spring-ai/reference/getting-started.html)
 - [Spring AI ChatClient](https://docs.spring.io/spring-ai/reference/api/chatclient.html)
 - [Spring AI OpenAI configuration](https://docs.spring.io/spring-ai/reference/api/chat/openai-chat.html)
-- [OpenRouter authentication and compatible base URL](https://openrouter.ai/docs/api_reference/authentication)
+- [OpenRouter authentication](https://openrouter.ai/docs/api_reference/authentication)
 - [OpenRouter model identifier](https://openrouter.ai/openai/gpt-4o-mini)

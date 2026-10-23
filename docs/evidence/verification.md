@@ -1,36 +1,48 @@
-# TaskFlow verification record
+# TaskFlow test results
 
-Execution date: 23 October 2026, Singapore time.
+Recorded execution: 23 October 2026, Singapore time.
 
-## Actual results
+## Build and automated tests
 
-| Check | Result | Evidence |
+The Tasks 1–6 build passed `clean verify` with 21 tests, zero failures, zero errors, and zero skips. The build uses Java 21.0.13 Temurin, Spring Boot 4.1.2, Spring AI 2.0.1, and Maven 3.10.0 through the generated wrapper.
+
+| Test suite | Passed | Report |
 | --- | --- | --- |
-| Java compiler and runtime | Java 21.0.13 Temurin | Maven build and startup logs |
-| Spring Boot | 4.1.2 stable generated project | pom.xml and runtime banner |
-| Maven | 3.10.0 wrapper | Generated wrapper configuration |
-| Service tests | 10 passed | maven-verify.txt and surefire summaries |
-| Generated Spring context test | 1 passed | maven-verify.txt and surefire summaries |
-| Maven clean verify | Passed 11 tests with no failures errors or skips | maven-verify.txt |
-| Running HTTP API | 25 requests and response assertions passed | http-checks.json |
-| Postman collection via Newman | 24 requests and 38 assertions passed with no failures | postman-newman.json and postman-newman.txt |
-| Restart behaviour | A stored task became an empty list after process restart | restart-check.json |
-| Executable JAR startup | Four HTTP checks passed including explicit null completion | jar-checks.json |
-| Mandatory route success codes | POST 201 and all five other successful routes 200 | HTTP and Postman reports |
-| Negative requests | 400 invalid input and 404 unknown IDs | HTTP and Postman reports |
+| Task service | 10 | [TaskServiceTest](sg.edu.ntu.taskflowapi.service.TaskServiceTest.txt) |
+| Application context | 1 | [TaskflowApiApplicationTests](sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests.txt) |
+| Summary service | 5 | [TaskSummaryServiceTest](sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest.txt) |
+| Summary HTTP integration | 5 | [TaskSummaryHttpTest](sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest.txt) |
+| Total | 21 | [Maven build log](task6-maven-verify.txt) |
 
-The server was started with the assignment's Maven goal through the generated wrapper. Port 18080 was used for isolated verification; the supplied default and Postman environment use 8080. The reports correctly retain the actual test port. Change only baseUrl if using a different local port.
+Summary unit tests use model doubles. Summary HTTP integration tests connect the Spring AI client to a local OpenAI-compatible test server with controlled responses. They exercise request serialization, response parsing, and HTTP error handling.
 
-## Version compatibility correction
+## API and Postman collection runs
 
-The first live HTTP run detected that omitting completed was rejected by the current Jackson configuration, despite the Java field being a primitive boolean. The final configuration explicitly treats omitted or null primitive values as their Java defaults. The corrected application passed the complete HTTP and Postman runs. No service test result was used as a substitute for checking HTTP JSON binding.
+| Check | Recorded result | Report |
+| --- | --- | --- |
+| Task API HTTP regression | 25 requests passed | [HTTP regression](task6-http-regression.json) |
+| CRUD collection through Newman | 24 requests; 38 assertions; zero failures | [CRUD run](task6-crud-newman.txt) |
+| AI collection through Newman with local test server | 9 requests; 15 assertions; zero failures | [AI run](task6-ai-newman.txt) |
+| Summary provider-contract data | One done / one pending, then two done / zero pending | [Requests and simulated responses](task6-postman-summary.json) |
 
-## Test methods and reports
+The collections ran against the packaged application. The AI run used the local OpenAI-compatible test server. Its response text is controlled test data. [Task 6 test details](task6-verification.md) describe the covered cases.
 
-Newman executed the Postman collection and its post-response test scripts. The collection is also available for interactive use in Postman; import instructions are in [the setup guide](../finish-today.md).
+## Storage and packaging checks
 
-Both Maven startup and the executable JAR were checked. The clean build contains the Spring Boot launcher manifest and starts with `java -jar target/taskflow-api-0.0.1-SNAPSHOT.jar`. Its four HTTP checks include the explicit null completion case. Rebuilding creates the JAR in target. The setup procedure uses `mvn spring-boot:run`, as specified in the assignment and practised in class. These verification runs used the generated wrapper to run the same Maven goal.
+The Tasks 1–5 baseline reports include these checks:
 
-Public GitHub repository: [Jefkong77/module3-taskflow-api](https://github.com/Jefkong77/module3-taskflow-api). The main branch contains source, tests, EDA, Postman collections, and test reports.
+| Check | Recorded result | Report |
+| --- | --- | --- |
+| Original clean build | 11 tests passed | [Baseline build log](maven-verify.txt) |
+| Original HTTP regression | 25 requests passed | [Baseline HTTP report](http-checks.json) |
+| Original Newman run | 24 requests; 38 assertions; zero failures | [JSON report](postman-newman.json); [text report](postman-newman.txt) |
+| Executable Jar startup | Four HTTP checks passed, including null completed | [Jar checks](jar-checks.json) |
+| Application restart | Stored task followed by an empty list after restart | [Restart check](restart-check.json) |
 
-This record documents the Tasks 1–5 baseline. [Task 6 verification](task6-verification.md) records the subsequent 21-test build and Spring AI integration checks.
+These baseline checks establish the collection storage and packaging behaviour. The Tasks 1–6 build and regression results are recorded in the tables above. The baseline HTTP server used port 18080; the application's default port is 8080.
+
+## Covered API behaviour
+
+The reports cover POST 201, the five other task-operation success responses of 200, 400 for invalid input, 404 for unknown IDs, title trimming, generated IDs, and saved completion state. JSON tests cover omitted and null completed values binding to false.
+
+Summary checks cover text/plain responses, unchanged task records, an empty list, the fifty-task limit, failed provider requests, and blank provider output. Test procedures are in [local development](../finish-today.md) and the [Task 6 guide](../task6-ai-summary.md).
