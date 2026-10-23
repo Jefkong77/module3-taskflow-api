@@ -24,10 +24,10 @@ git clone https://github.com/Jefkong77/module3-taskflow-api.git
 cd module3-taskflow-api
 code .
 java -version
-./mvnw -version
+mvn -version
 ```
 
-Both Java and Maven must report Java 21. The generated Maven Wrapper supplies Maven if the `mvn` command is unavailable. The first build needs internet access for dependencies. If the clone folder already exists, open it and inspect `git status` before pulling changes.
+Both Java and Maven must report Java 21. Use your installed Maven as in class; the generated Maven Wrapper remains available if the `mvn` command is unavailable. The first build needs internet access for dependencies. If the clone folder already exists, open it and inspect `git status` before pulling changes.
 
 The Explorer should show `pom.xml`, `mvnw`, and `src` at the project root. Do not open only a Java file or place this project inside the old simple-crm source folder. If working from the earlier ZIP instead, open its `taskflow-api` folder in WSL Ubuntu; the published repository now carries the current instructions.
 
@@ -38,16 +38,16 @@ The brief says to write the code yourself using class learning. Treat the suppli
 Read `Task.java`, then `TaskRepository.java`, `TaskService.java`, and `TaskController.java`. Read `ApiExceptionHandler.java` last. All files are under `src/main/java/sg/edu/ntu/taskflowapi`.
 
 ```bash
-./mvnw clean verify
-./mvnw spring-boot:run
+mvn clean verify
+mvn spring-boot:run
 ```
 
-The second command keeps running. Leave this terminal open while testing. If installed Maven is available, `mvn spring-boot:run` is the equivalent command in the brief. A fresh `GET http://localhost:8080/api/tasks` should return 200 and `[]`.
+The second command keeps running. Leave this terminal open while testing. These are the installed Maven commands used in class and specified in the brief. If Maven is unavailable, the wrapper alternatives are `./mvnw clean verify` and `./mvnw spring-boot:run`. A fresh `GET http://localhost:8080/api/tasks` should return 200 and `[]`.
 
 If 8080 is already used by another lesson:
 
 ```bash
-PORT=8081 ./mvnw spring-boot:run
+PORT=8081 mvn spring-boot:run
 ```
 
 Use 8081 in Postman too. Do not stop an unrelated process.
