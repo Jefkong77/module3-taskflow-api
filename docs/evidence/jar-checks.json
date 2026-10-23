@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "base_url": "http://localhost:18081",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/tasks",
+      "status": 200,
+      "response": []
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "status": 201,
+      "response": {
+        "id": 1,
+        "title": "Explicit null completion",
+        "completed": false
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tasks/1",
+      "status": 200,
+      "response": {
+        "message": "Task 1 deleted"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks",
+      "status": 200,
+      "response": []
+    }
+  ]
+}

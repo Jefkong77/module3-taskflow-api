@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "before_restart": [
+    {
+      "id": 5,
+      "title": "Restart witness",
+      "completed": false
+    }
+  ],
+  "after_restart": []
+}

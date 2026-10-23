@@ -1,2 +1,87 @@
-# module3-taskflow-api
-NTU Module 3 TaskFlow task management API — Java 21, Spring Boot, layered architecture, in-memory storage, EDA and verification evidence.
+# TaskFlow Task Management API
+
+Public repository: [Jefkong77/module3-taskflow-api](https://github.com/Jefkong77/module3-taskflow-api).
+
+Module 3 mandatory assignment for NTU PACE. This Java 21 Spring Boot backend implements Tasks 1–5: a Lombok Task POJO, an initialized in-memory HashMap repository, a service, and six REST endpoints. Context and data analysis for Ms. Sanjela are in [the EDA](docs/EDA-and-context.md).
+
+## Start and test
+
+Prerequisites: JDK 21 and internet access for the first Maven dependency download. The generated Maven Wrapper is included. Spring Boot is **4.1.2**, selected from the stable Spring Initializr options on 23 October 2026. The wrapper uses Maven 3.10.0.
+
+From the project root in WSL Ubuntu:
+
+```bash
+chmod +x mvnw
+./mvnw -version
+./mvnw clean verify
+./mvnw spring-boot:run
+```
+
+Installed Maven may be used with `mvn spring-boot:run`, as in the assignment. In Windows PowerShell, use `.\mvnw.cmd clean verify` and `.\mvnw.cmd spring-boot:run`. Keep the server terminal running while using Postman. Stop it with Ctrl+C.
+
+The base URL is `http://localhost:8080`. To use another port in WSL, run `PORT=8081 ./mvnw spring-boot:run` and update the Postman baseUrl. Fresh storage returns `[]` from GET `/api/tasks`.
+
+## Endpoints
+
+| Method | Path | Purpose | Success |
+| --- | --- | --- | --- |
+| GET | /api/tasks | List all tasks | 200 |
+| GET | /api/tasks/{id} | Get a task | 200 |
+| POST | /api/tasks | Create a task | 201 |
+| PUT | /api/tasks/{id} | Replace title and completed | 200 |
+| DELETE | /api/tasks/{id} | Delete a task | 200 |
+| PUT | /api/tasks/{id}/complete | Set completed to true and save | 200 |
+
+POST and PUT bodies use raw JSON in Postman with Content-Type `application/json`:
+
+```json
+{"title":"Test every TaskFlow endpoint","completed":false}
+```
+
+Creation returns a generated ID and a Location header:
+
+```json
+{"id":1,"title":"Test every TaskFlow endpoint","completed":false}
+```
+
+Unknown positive IDs return 404. Invalid IDs, blank or missing titles, titles over 200 characters after trimming, and malformed JSON return 400 with readable problem details. The 200-character limit is an additional implementation choice. DELETE intentionally returns **200** to match the brief. Repeating completion keeps completed true. The URL ID governs updates and a client-supplied creation ID is ignored. An explicit Jackson deserialization setting treats omitted or null completed values as false; PUT should send both writable fields.
+
+## Layered design
+
+The HTTP request enters TaskController, which calls TaskService through constructor injection. TaskService validates data and calls TaskRepository through constructor injection. TaskRepository owns the map and ID counter. Task is a plain POJO using Lombok annotations; it has no Spring annotations.
+
+```text
+src/main/java/sg/edu/ntu/taskflowapi/
+  TaskflowApiApplication.java
+  controller/TaskController.java
+  controller/ApiExceptionHandler.java
+  model/Task.java
+  repository/TaskRepository.java
+  service/TaskService.java
+src/test/java/sg/edu/ntu/taskflowapi/
+  TaskflowApiApplicationTests.java
+  service/TaskServiceTest.java
+```
+
+The repository uses a non-null HashMap with a counter for generated IDs. It returns copies and sorts lists by ID. Synchronized repository methods protect individual map operations and counter increments. Multi-step service operations are not database transactions.
+
+## Verification and evidence
+
+- Run `./mvnw clean verify` for service tests, Spring context startup, and JAR packaging.
+- Import the collection and environment from `docs/postman` into Postman. Run the 24 requests in order. Each includes assertions; generated IDs are captured automatically and both synthetic tasks are deleted at the end.
+- For additional HTTP verification, start a fresh server and run `python3 scripts/http_smoke.py` from a second terminal. It writes `docs/evidence/http-checks.json`.
+- Read [actual verification status](docs/evidence/verification.md) for execution results and outstanding learner actions. Expected results in the guide are not automatically completed checks.
+- Follow [finish today](docs/finish-today.md) for WSL setup, Postman, public GitHub publishing, and NTU Learn submission.
+- Consult the [requirement matrix](docs/requirements-matrix.md) to map each assessed requirement to source and evidence.
+
+## Scope and limitations
+
+Tasks live only in this application's memory. A process restart or DevTools restart clears the map and resets the counter. The project starts empty; `docs/sample-tasks.csv` is an illustrative EDA fixture, not a seed import. There is no database, JPA, SQL, user authentication, frontend, or hosted API in this assignment baseline.
+
+Optional Task 6 is **not implemented**. There is no Spring AI dependency, summary endpoint, or API key requirement. The brief states Tasks 1–5 are enough to pass. No optional feature is claimed as completed.
+
+## References and assistance
+
+The mandatory Word brief controls scope. The supplied `Module3_Backend_Development_Guide.md` provides supporting implementation guidance. Project scaffolding comes from [Spring Initializr](https://start.spring.io/); framework references are [Spring Boot](https://docs.spring.io/spring-boot/) and [Lombok](https://projectlombok.org/features/). Postman collection automation uses the [Newman runner](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/).
+
+This package was prepared with ChatGPT assistance using the guide's examples, with additional documentation and executable verification. It is assisted reference work. The learner must review, understand, and adapt it in line with the assignment's instruction to write the code yourself and any instructor rules. No independent authorship or completed NTU Learn submission is asserted here.

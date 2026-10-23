@@ -1,0 +1,135 @@
+(node:242) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+Module 3 TaskFlow API
+
+→ 01 List tasks
+  GET http://localhost:18080/api/tasks [200 OK, 157B, 31ms]
+  ✓  HTTP 200
+  ✓  List is an array
+
+→ 02 Create first task
+  POST http://localhost:18080/api/tasks [201 Created, 247B, 6ms]
+  ✓  HTTP 201
+  ✓  Generated ID and trimmed title
+  ✓  Location points to created task
+
+→ 03 Create second task
+  POST http://localhost:18080/api/tasks [201 Created, 249B, 5ms]
+  ✓  HTTP 201
+  ✓  Second generated ID is different
+
+→ 04 List both created tasks
+  GET http://localhost:18080/api/tasks [200 OK, 270B, 7ms]
+  ✓  HTTP 200
+  ✓  Both tasks are stored
+
+→ 05 Get first task
+  GET http://localhost:18080/api/tasks/3 [200 OK, 210B, 5ms]
+  ✓  HTTP 200
+  ✓  ID matches
+
+→ 06 Update first task
+  PUT http://localhost:18080/api/tasks/3 [200 OK, 223B, 5ms]
+  ✓  HTTP 200
+  ✓  Update preserves path ID
+
+→ 07 Complete first task
+  PUT http://localhost:18080/api/tasks/3/complete [200 OK, 222B, 4ms]
+  ✓  HTTP 200
+  ✓  Completed flag is true
+
+→ 08 Complete first task again
+  PUT http://localhost:18080/api/tasks/3/complete [200 OK, 222B, 4ms]
+  ✓  HTTP 200
+  ✓  Repeated completion stays true
+
+→ 09 Read saved completion
+  GET http://localhost:18080/api/tasks/3 [200 OK, 222B, 5ms]
+  ✓  HTTP 200
+  ✓  Completion was saved
+
+→ 10 Delete first task
+  DELETE http://localhost:18080/api/tasks/3 [200 OK, 192B, 3ms]
+  ✓  HTTP 200
+  ✓  Deletion confirmation
+
+→ 11 Read deleted task
+  GET http://localhost:18080/api/tasks/3 [404 Not Found, 271B, 3ms]
+  ✓  HTTP 404
+  ✓  Readable error
+
+→ 12 Read missing
+  GET http://localhost:18080/api/tasks/999999999 [404 Not Found, 287B, 5ms]
+  ✓  HTTP 404
+
+→ 13 Update missing
+  PUT http://localhost:18080/api/tasks/999999999 [404 Not Found, 287B, 4ms]
+  ✓  HTTP 404
+
+→ 14 Delete missing
+  DELETE http://localhost:18080/api/tasks/999999999 [404 Not Found, 287B, 5ms]
+  ✓  HTTP 404
+
+→ 15 Complete missing
+  PUT http://localhost:18080/api/tasks/999999999/complete [404 Not Found, 296B, 5ms]
+  ✓  HTTP 404
+
+→ 16 Reject blank title
+  POST http://localhost:18080/api/tasks [400 Bad Request, 252B, 5ms]
+  ✓  HTTP 400
+  ✓  Blank title explained
+
+→ 17 Reject missing title
+  POST http://localhost:18080/api/tasks [400 Bad Request, 252B, 9ms]
+  ✓  HTTP 400
+
+→ 18 Reject overlong title
+  POST http://localhost:18080/api/tasks [400 Bad Request, 265B, 4ms]
+  ✓  HTTP 400
+
+→ 19 Reject malformed JSON
+  POST http://localhost:18080/api/tasks [400 Bad Request, 265B, 6ms]
+  ✓  HTTP 400
+
+→ 20 Reject nonnumeric ID
+  GET http://localhost:18080/api/tasks/abc [400 Bad Request, 262B, 4ms]
+  ✓  HTTP 400
+
+→ 21 Reject zero ID
+  GET http://localhost:18080/api/tasks/0 [400 Bad Request, 260B, 5ms]
+  ✓  HTTP 400
+
+→ 22 Reject invalid update
+  PUT http://localhost:18080/api/tasks/4 [400 Bad Request, 254B, 4ms]
+  ✓  HTTP 400
+
+→ 23 Check rejected update did not change task
+  GET http://localhost:18080/api/tasks/4 [200 OK, 212B, 4ms]
+  ✓  HTTP 200
+  ✓  Original state preserved
+
+→ 24 Delete second task
+  DELETE http://localhost:18080/api/tasks/4 [200 OK, 192B, 3ms]
+  ✓  HTTP 200
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              24 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              24 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               0 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              38 │               0 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 491ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 1.94kB (approx)                        │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 5ms [min: 3ms, max: 31ms, s.d.: 5ms] │
+└─────────────────────────────────────────────────────────────┘
