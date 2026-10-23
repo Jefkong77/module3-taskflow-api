@@ -29,7 +29,7 @@ The first live HTTP run detected that omitting completed was rejected by the cur
 
 Newman executed the actual Postman collection and its post-response test scripts. No desktop Postman session or Postman screenshots are claimed. The learner should import and inspect the same collection in Postman to follow the brief's testing instruction directly.
 
-Both Maven startup and the final executable JAR were checked. The final clean build contains the Spring Boot launcher manifest and starts with `java -jar target/taskflow-api-0.0.1-SNAPSHOT.jar`. Its four HTTP checks include the explicit null completion case. Build output is omitted from the source submission ZIP; rebuilding creates the JAR. The primary learner procedure remains `./mvnw spring-boot:run`, as directed by the assignment.
+Both Maven startup and the final executable JAR were checked. The final clean build contains the Spring Boot launcher manifest and starts with `java -jar target/taskflow-api-0.0.1-SNAPSHOT.jar`. Its four HTTP checks include the explicit null completion case. Build output is omitted from the source submission ZIP; rebuilding creates the JAR. The learner procedure uses `mvn spring-boot:run`, as specified in the assignment and practised in class. Verification here used the generated wrapper to run the same Maven goal.
 
 Public GitHub repository: https://github.com/Jefkong77/module3-taskflow-api. Repository creation was completed after the user approved browser sign-in. The source, tests, EDA, Postman collection, and evidence are published on main. Publication is separate from the NTU Learn submission.
 
