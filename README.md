@@ -126,6 +126,6 @@ Optional Task 6 is **not implemented**. There is no Spring AI dependency, summar
 
 ## References and assistance
 
-The mandatory Word brief controls scope. The supplied `Module3_Backend_Development_Guide.md` provides supporting implementation guidance. Project scaffolding comes from [Spring Initializr](https://start.spring.io/); framework references are [Spring Boot](https://docs.spring.io/spring-boot/) and [Lombok](https://projectlombok.org/features/). Postman collection automation uses the [Newman runner](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/).
+The mandatory Word brief controls scope. Project scaffolding comes from [Spring Initializr](https://start.spring.io/); framework references are [Spring Boot](https://docs.spring.io/spring-boot/) and [Lombok](https://projectlombok.org/features/). Postman collection automation uses the [Newman runner](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/).
 
 This package was prepared with ChatGPT assistance using the guide's examples, with additional documentation and executable verification. It is assisted reference work. The learner must review, understand, and adapt it in line with the assignment's instruction to write the code yourself and any instructor rules. No independent authorship or completed NTU Learn submission is asserted here.
