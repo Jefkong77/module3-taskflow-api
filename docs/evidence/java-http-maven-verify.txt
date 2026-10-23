@@ -5,42 +5,6 @@
 [INFO] Building taskflow-api 0.0.1-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.pom (5.7 kB at 869 B/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/44/maven-plugins-44.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/44/maven-plugins-44.pom (8.4 kB at 178 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/44/maven-parent-44.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/44/maven-parent-44.pom (52 kB at 502 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/34/apache-34.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/34/apache-34.pom (24 kB at 485 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.12.1/junit-bom-5.12.1.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.12.1/junit-bom-5.12.1.pom (5.6 kB at 107 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.jar
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.jar (37 kB at 369 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.1/maven-jar-plugin-3.5.1.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.1/maven-jar-plugin-3.5.1.pom (7.6 kB at 119 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/49/maven-plugins-49.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/49/maven-plugins-49.pom (7.2 kB at 150 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/49/maven-parent-49.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/49/maven-parent-49.pom (51 kB at 632 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/39/apache-39.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/39/apache-39.pom (27 kB at 552 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom (5.7 kB at 103 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.1/maven-jar-plugin-3.5.1.jar
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.1/maven-jar-plugin-3.5.1.jar (35 kB at 417 kB/s)
 [INFO] 
 [INFO] --- clean:3.5.0:clean (default-clean) @ taskflow-api ---
 [INFO] Deleting /workspace/scratch/221e940a387b/taskflow-published-check/target
@@ -53,8 +17,6 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/p
 [INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 8 source files with javac [debug parameters release 21] to target/classes
-[INFO] /workspace/scratch/221e940a387b/taskflow-published-check/src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java: /workspace/scratch/221e940a387b/taskflow-published-check/src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java uses or overrides a deprecated API.
-[INFO] /workspace/scratch/221e940a387b/taskflow-published-check/src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- resources:3.5.0:testResources (default-testResources) @ taskflow-api ---
 [INFO] skip non existing resourceDirectory /workspace/scratch/221e940a387b/taskflow-published-check/src/test/resources
@@ -70,11 +32,11 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/p
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
-23:00:38.770 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest]: TaskSummaryHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-23:00:38.888 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
-23:00:38.953 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest]: TaskSummaryHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-23:00:38.955 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
-23:00:39.018 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+00:03:06.449 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest]: TaskSummaryHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:03:06.563 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
+00:03:06.631 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest]: TaskSummaryHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:03:06.632 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
+00:03:06.692 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -85,26 +47,26 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/p
 
  :: Spring Boot ::                (v4.1.2)
 
-2026-10-23T23:00:39.240+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.controller.TaskSummaryHttpTest   : Starting TaskSummaryHttpTest using Java 21.0.13 with PID 201 (started by root in /workspace/scratch/221e940a387b/taskflow-published-check)
-2026-10-23T23:00:39.241+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.controller.TaskSummaryHttpTest   : No active profile set, falling back to 1 default profile: "default"
-2026-10-23T23:00:39.983+08:00  INFO 201 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
-2026-10-23T23:00:39.995+08:00  INFO 201 --- [taskflow-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-10-23T23:00:39.996+08:00  INFO 201 --- [taskflow-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
-2026-10-23T23:00:40.031+08:00  INFO 201 --- [taskflow-api] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 749 ms
-2026-10-23T23:00:40.915+08:00  INFO 201 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 44119 (http) with context path '/'
-2026-10-23T23:00:40.922+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.controller.TaskSummaryHttpTest   : Started TaskSummaryHttpTest in 1.912 seconds (process running for 2.91)
+2026-10-24T00:03:06.919+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.controller.TaskSummaryHttpTest   : Starting TaskSummaryHttpTest using Java 21.0.13 with PID 203 (started by root in /workspace/scratch/221e940a387b/taskflow-published-check)
+2026-10-24T00:03:06.920+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.controller.TaskSummaryHttpTest   : No active profile set, falling back to 1 default profile: "default"
+2026-10-24T00:03:07.768+08:00  INFO 203 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-24T00:03:07.780+08:00  INFO 203 --- [taskflow-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-24T00:03:07.781+08:00  INFO 203 --- [taskflow-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-10-24T00:03:07.819+08:00  INFO 203 --- [taskflow-api] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 859 ms
+2026-10-24T00:03:08.635+08:00  INFO 203 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 38849 (http) with context path '/'
+2026-10-24T00:03:08.642+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.controller.TaskSummaryHttpTest   : Started TaskSummaryHttpTest in 1.958 seconds (process running for 3.21)
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
-2026-10-23T23:00:41.303+08:00  INFO 201 --- [taskflow-api] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-23T23:00:41.303+08:00  INFO 201 --- [taskflow-api] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-10-23T23:00:41.305+08:00  INFO 201 --- [taskflow-api] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.760 s -- in sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
+2026-10-24T00:03:09.034+08:00  INFO 203 --- [taskflow-api] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-24T00:03:09.034+08:00  INFO 203 --- [taskflow-api] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-24T00:03:09.036+08:00  INFO 203 --- [taskflow-api] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.834 s -- in sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
 [INFO] Running sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
-2026-10-23T23:00:42.384+08:00  INFO 201 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest]: TaskControllerHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-23T23:00:42.386+08:00  INFO 201 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
-2026-10-23T23:00:42.388+08:00  INFO 201 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest]: TaskControllerHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-23T23:00:42.390+08:00  INFO 201 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
-2026-10-23T23:00:42.405+08:00  INFO 201 --- [taskflow-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-24T00:03:10.109+08:00  INFO 203 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest]: TaskControllerHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-24T00:03:10.111+08:00  INFO 203 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
+2026-10-24T00:03:10.113+08:00  INFO 203 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest]: TaskControllerHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-24T00:03:10.114+08:00  INFO 203 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
+2026-10-24T00:03:10.126+08:00  INFO 203 --- [taskflow-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -115,24 +77,24 @@ Mockito is currently self-attaching to enable the inline-mock-maker. This will n
 
  :: Spring Boot ::                (v4.1.2)
 
-2026-10-23T23:00:42.441+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.c.TaskControllerHttpTest         : Starting TaskControllerHttpTest using Java 21.0.13 with PID 201 (started by root in /workspace/scratch/221e940a387b/taskflow-published-check)
-2026-10-23T23:00:42.441+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.c.TaskControllerHttpTest         : No active profile set, falling back to 1 default profile: "default"
-2026-10-23T23:00:42.585+08:00  INFO 201 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
-2026-10-23T23:00:42.586+08:00  INFO 201 --- [taskflow-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-10-23T23:00:42.586+08:00  INFO 201 --- [taskflow-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
-2026-10-23T23:00:42.598+08:00  INFO 201 --- [taskflow-api] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 154 ms
-2026-10-23T23:00:42.691+08:00  INFO 201 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 35027 (http) with context path '/'
-2026-10-23T23:00:42.695+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.c.TaskControllerHttpTest         : Started TaskControllerHttpTest in 0.289 seconds (process running for 4.683)
-2026-10-23T23:00:42.705+08:00  INFO 201 --- [taskflow-api] [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-23T23:00:42.705+08:00  INFO 201 --- [taskflow-api] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-10-23T23:00:42.706+08:00  INFO 201 --- [taskflow-api] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.501 s -- in sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
+2026-10-24T00:03:10.156+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.c.TaskControllerHttpTest         : Starting TaskControllerHttpTest using Java 21.0.13 with PID 203 (started by root in /workspace/scratch/221e940a387b/taskflow-published-check)
+2026-10-24T00:03:10.157+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.c.TaskControllerHttpTest         : No active profile set, falling back to 1 default profile: "default"
+2026-10-24T00:03:10.346+08:00  INFO 203 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-24T00:03:10.347+08:00  INFO 203 --- [taskflow-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-24T00:03:10.348+08:00  INFO 203 --- [taskflow-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-10-24T00:03:10.358+08:00  INFO 203 --- [taskflow-api] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 199 ms
+2026-10-24T00:03:10.475+08:00  INFO 203 --- [taskflow-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 36829 (http) with context path '/'
+2026-10-24T00:03:10.477+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.c.TaskControllerHttpTest         : Started TaskControllerHttpTest in 0.352 seconds (process running for 5.045)
+2026-10-24T00:03:10.489+08:00  INFO 203 --- [taskflow-api] [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-24T00:03:10.489+08:00  INFO 203 --- [taskflow-api] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-24T00:03:10.491+08:00  INFO 203 --- [taskflow-api] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.568 s -- in sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
 [INFO] Running sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
-2026-10-23T23:00:42.880+08:00  INFO 201 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests]: TaskflowApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-23T23:00:42.889+08:00  INFO 201 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
-2026-10-23T23:00:42.890+08:00  INFO 201 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests]: TaskflowApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-23T23:00:42.891+08:00  INFO 201 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
-2026-10-23T23:00:42.900+08:00  INFO 201 --- [taskflow-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-24T00:03:10.675+08:00  INFO 203 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests]: TaskflowApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-24T00:03:10.682+08:00  INFO 203 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
+2026-10-24T00:03:10.683+08:00  INFO 203 --- [taskflow-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests]: TaskflowApiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-24T00:03:10.684+08:00  INFO 203 --- [taskflow-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration sg.edu.ntu.taskflowapi.TaskflowApiApplication for test class sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
+2026-10-24T00:03:10.691+08:00  INFO 203 --- [taskflow-api] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -143,14 +105,14 @@ Mockito is currently self-attaching to enable the inline-mock-maker. This will n
 
  :: Spring Boot ::                (v4.1.2)
 
-2026-10-23T23:00:42.927+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.TaskflowApiApplicationTests      : Starting TaskflowApiApplicationTests using Java 21.0.13 with PID 201 (started by root in /workspace/scratch/221e940a387b/taskflow-published-check)
-2026-10-23T23:00:42.927+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.TaskflowApiApplicationTests      : No active profile set, falling back to 1 default profile: "default"
-2026-10-23T23:00:43.132+08:00  INFO 201 --- [taskflow-api] [           main] s.e.n.t.TaskflowApiApplicationTests      : Started TaskflowApiApplicationTests in 0.233 seconds (process running for 5.12)
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.261 s -- in sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
+2026-10-24T00:03:10.709+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.TaskflowApiApplicationTests      : Starting TaskflowApiApplicationTests using Java 21.0.13 with PID 203 (started by root in /workspace/scratch/221e940a387b/taskflow-published-check)
+2026-10-24T00:03:10.709+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.TaskflowApiApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2026-10-24T00:03:10.909+08:00  INFO 203 --- [taskflow-api] [           main] s.e.n.t.TaskflowApiApplicationTests      : Started TaskflowApiApplicationTests in 0.218 seconds (process running for 5.477)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.246 s -- in sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
 [INFO] Running sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest
 [INFO] Running sg.edu.ntu.taskflowapi.service.TaskServiceTest
-[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in sg.edu.ntu.taskflowapi.service.TaskServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in sg.edu.ntu.taskflowapi.service.TaskServiceTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -158,300 +120,15 @@ Mockito is currently self-attaching to enable the inline-mock-maker. This will n
 [INFO] 
 [INFO] 
 [INFO] --- jar:3.5.1:jar (default-jar) @ taskflow-api ---
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.2.0/file-management-3.2.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.12.0/plexus-archiver-4.12.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.6/maven-archiver-3.6.6.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.12.0/plexus-archiver-4.12.0.pom (5.6 kB at 123 kB/s)
-                            
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.6/maven-archiver-3.6.6.pom (5.2 kB at 651 B/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.pom (20 kB at 2.5 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.2.0/file-management-3.2.0.pom (4.5 kB at 562 B/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/45/maven-shared-components-45.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/98/commons-parent-98.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/44/maven-shared-components-44.pom
-                             
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/45/maven-shared-components-45.pom (3.8 kB at 88 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/45/maven-parent-45.pom
-                             
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/44/maven-shared-components-44.pom (3.8 kB at 59 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.19.0/commons-io-2.19.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/98/commons-parent-98.pom (80 kB at 877 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.pom (6.8 kB at 148 kB/s)
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/45/maven-parent-45.pom (53 kB at 661 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.1/junit-bom-5.13.1.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.19.0/commons-io-2.19.0.pom (21 kB at 287 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/81/commons-parent-81.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.1/junit-bom-5.13.1.pom (5.6 kB at 145 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.6.0/plexus-io-3.6.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.10.4/plexus-archiver-4.10.4.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.12/xz-1.12.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.10.4/plexus-archiver-4.10.4.pom (5.6 kB at 141 kB/s)
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.pom (25 kB at 649 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/85/commons-parent-85.pom
-Downloading from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.7-9/zstd-jni-1.5.7-9.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.6.0/plexus-io-3.6.0.pom (3.5 kB at 68 kB/s)
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/81/commons-parent-81.pom (78 kB at 724 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/33/apache-33.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/33/apache-33.pom (24 kB at 620 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.4/junit-bom-5.11.4.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/85/commons-parent-85.pom (78 kB at 842 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.4/junit-bom-5.11.4.pom (5.6 kB at 107 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.19.0/commons-codec-1.19.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.20.0/commons-io-2.20.0.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.7-9/zstd-jni-1.5.7-9.pom (2.0 kB at 12 kB/s)
-                           
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.19.0/commons-codec-1.19.0.pom (18 kB at 409 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.20.0/commons-io-2.20.0.pom (20 kB at 455 kB/s)
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.pom (32 kB at 525 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.12/xz-1.12.pom (1.9 kB at 248 B/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.2.0/file-management-3.2.0.jar
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.2.0/file-management-3.2.0.jar (26 kB at 328 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.6/maven-archiver-3.6.6.jar
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.12.0/plexus-archiver-4.12.0.jar
-Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.jar
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.jar
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.6.0/plexus-io-3.6.0.jar
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.6.0/plexus-io-3.6.0.jar (80 kB at 1.6 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.12.0/plexus-archiver-4.12.0.jar (227 kB at 3.2 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.12/xz-1.12.jar
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.jar (609 kB at 7.4 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.7-9/zstd-jni-1.5.7-9.jar
-                                
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.6/maven-archiver-3.6.6.jar (28 kB at 308 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.19.0/commons-codec-1.19.0.jar
-                                                                        
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar (1.1 MB at 7.1 MB/s)
-                                                               
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar
-                                                       
-Downloaded from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.12/xz-1.12.jar (169 kB at 999 kB/s)
-                                              
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.jar (193 kB at 1.1 MB/s)
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.19.0/commons-codec-1.19.0.jar (375 kB at 1.9 MB/s)
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.18.0/commons-lang3-3.18.0.jar (703 kB at 2.7 MB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.7-9/zstd-jni-1.5.7-9.jar (7.6 MB at 20 MB/s)
 [INFO] Building jar: /workspace/scratch/221e940a387b/taskflow-published-check/target/taskflow-api-0.0.1-SNAPSHOT.jar
 [INFO] 
 [INFO] --- spring-boot:4.1.2:repackage (repackage) @ taskflow-api ---
-Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-buildpack-platform/4.1.2/spring-boot-buildpack-platform-4.1.2.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-loader-tools/4.1.2/spring-boot-loader-tools-4.1.2.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-shade-plugin/3.6.0/maven-shade-plugin-3.6.0.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-buildpack-platform/4.1.2/spring-boot-buildpack-platform-4.1.2.pom (3.0 kB at 62 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.27.1/commons-compress-1.27.1.pom
-Downloading from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.6.5/httpclient5-5.6.5.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-shade-plugin/3.6.0/maven-shade-plugin-3.6.0.pom (12 kB at 219 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-loader-tools/4.1.2/spring-boot-loader-tools-4.1.2.pom (2.2 kB at 42 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/42/maven-plugins-42.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/tomlj/tomlj/1.0.0/tomlj-1.0.0.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.27.1/commons-compress-1.27.1.pom (23 kB at 536 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/tomlj/tomlj/1.0.0/tomlj-1.0.0.pom (2.8 kB at 74 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/72/commons-parent-72.pom
-Downloading from central: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.pom
-                                      
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/42/maven-plugins-42.pom (7.7 kB at 148 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.6.5/httpclient5-5.6.5.pom (6.7 kB at 118 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.pom (2.3 kB at 38 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/client5/httpclient5-parent/5.6.5/httpclient5-parent-5.6.5.pom
-Downloading from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.16.8/micrometer-observation-1.16.8.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.pom
-                            
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/client5/httpclient5-parent/5.6.5/httpclient5-parent-5.6.5.pom (20 kB at 473 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.pom (8.8 kB at 231 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-parent/14/httpcomponents-parent-14.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/10/plexus-10.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.pom (32 kB at 537 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.16.8/micrometer-observation-1.16.8.pom (2.8 kB at 48 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/72/commons-parent-72.pom (78 kB at 857 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.0-M2/junit-bom-5.11.0-M2.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-parent/14/httpcomponents-parent-14.pom (30 kB at 660 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/27/apache-27.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/10/plexus-10.pom (25 kB at 423 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.pom (2.4 kB at 52 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/jdom/jdom2/2.0.6.1/jdom2-2.0.6.1.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.26.2/commons-compress-1.26.2.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.pom (2.8 kB at 47 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.16.1/commons-io-2.16.1.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.0-M2/junit-bom-5.11.0-M2.pom (5.7 kB at 121 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/vafer/jdependency/2.10/jdependency-2.10.pom
-                            
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/27/apache-27.pom (20 kB at 309 kB/s)
-                            
-Downloaded from central: https://repo.maven.apache.org/maven2/org/jdom/jdom2/2.0.6.1/jdom2-2.0.6.1.pom (4.6 kB at 87 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.26.2/commons-compress-1.26.2.pom (23 kB at 441 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/69/commons-parent-69.pom
-Downloading from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.17.0/jna-5.17.0.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.3/junit-bom-5.13.3.pom
-                           
-Downloaded from central: https://repo.maven.apache.org/maven2/org/vafer/jdependency/2.10/jdependency-2.10.pom (14 kB at 342 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.17.1/commons-codec-1.17.1.pom
-                            
-Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.3/junit-bom-5.13.3.pom (5.7 kB at 149 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/io/opentelemetry/opentelemetry-bom/1.49.0/opentelemetry-bom-1.49.0.pom
-                           
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.17.1/commons-codec-1.17.1.pom (18 kB at 508 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.16.1/commons-io-2.16.1.pom (20 kB at 216 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/71/commons-parent-71.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.17.0/jna-5.17.0.pom (2.0 kB at 40 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.16.0/commons-lang3-3.16.0.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/io/opentelemetry/opentelemetry-bom/1.49.0/opentelemetry-bom-1.49.0.pom (5.9 kB at 173 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5/5.4.4/httpcore5-5.4.4.pom
-                           
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/69/commons-parent-69.pom (77 kB at 670 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/31/apache-31.pom
-                            
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5/5.4.4/httpcore5-5.4.4.pom (3.9 kB at 74 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-parent/5.4.4/httpcore5-parent-5.4.4.pom
-                           
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/71/commons-parent-71.pom (78 kB at 845 kB/s)
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.16.0/commons-lang3-3.16.0.pom (31 kB at 347 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-h2/5.4.4/httpcore5-h2-5.4.4.pom
-Downloading from central: https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/31/apache-31.pom (24 kB at 453 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.pom (3.6 kB at 100 kB/s)
-                    
-Downloading from central: https://repo.maven.apache.org/maven2/org/antlr/antlr4-master/4.7.2/antlr4-master-4.7.2.pom
-                             
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-h2/5.4.4/httpcore5-h2-5.4.4.pom (3.6 kB at 80 kB/s)
-                             
-Downloaded from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.pom (4.3 kB at 100 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.16.8/micrometer-commons-1.16.8.pom
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-parent/5.4.4/httpcore5-parent-5.4.4.pom (15 kB at 160 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/antlr/antlr4-master/4.7.2/antlr4-master-4.7.2.pom (4.4 kB at 88 kB/s)
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.16.8/micrometer-commons-1.16.8.pom (2.8 kB at 54 kB/s)
 [INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
-Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.pom
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.pom (2.6 kB at 49 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-buildpack-platform/4.1.2/spring-boot-buildpack-platform-4.1.2.jar
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-buildpack-platform/4.1.2/spring-boot-buildpack-platform-4.1.2.jar (333 kB at 2.7 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-loader-tools/4.1.2/spring-boot-loader-tools-4.1.2.jar
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-shade-plugin/3.6.0/maven-shade-plugin-3.6.0.jar
-Downloading from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.27.1/commons-compress-1.27.1.jar
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.6.5/httpclient5-5.6.5.jar
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-shade-plugin/3.6.0/maven-shade-plugin-3.6.0.jar (150 kB at 3.3 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/tomlj/tomlj/1.0.0/tomlj-1.0.0.jar
-                                                                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.6.5/httpclient5-5.6.5.jar (1.1 MB at 11 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.jar
-                                                          
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.27.1/commons-compress-1.27.1.jar (1.1 MB at 11 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.16.8/micrometer-observation-1.16.8.jar
-                                             
-Downloaded from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar (1.4 MB at 12 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar
-                                
-Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-loader-tools/4.1.2/spring-boot-loader-tools-4.1.2.jar (341 kB at 2.7 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.jar
-                    
-Downloaded from central: https://repo.maven.apache.org/maven2/org/tomlj/tomlj/1.0.0/tomlj-1.0.0.jar (157 kB at 1.2 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-logging/commons-logging/1.3.5/commons-logging-1.3.5.jar (74 kB at 498 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/jdom/jdom2/2.0.6.1/jdom2-2.0.6.1.jar
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.16.8/micrometer-observation-1.16.8.jar (83 kB at 515 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.16.1/commons-io-2.16.1.jar
-                                                                     
-Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar (73 kB at 343 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/vafer/jdependency/2.10/jdependency-2.10.jar
-                                                       
-Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.jar (125 kB at 562 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar (269 kB at 1.2 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.17.1/commons-codec-1.17.1.jar
-                                             
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.16.1/commons-io-2.16.1.jar (509 kB at 2.0 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.16.0/commons-lang3-3.16.0.jar
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/org/jdom/jdom2/2.0.6.1/jdom2-2.0.6.1.jar (328 kB at 1.3 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5/5.4.4/httpcore5-5.4.4.jar
-                                                           
-Downloaded from central: https://repo.maven.apache.org/maven2/org/vafer/jdependency/2.10/jdependency-2.10.jar (416 kB at 1.3 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-h2/5.4.4/httpcore5-h2-5.4.4.jar
-                                                           
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.17.1/commons-codec-1.17.1.jar (373 kB at 1.1 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.jar
-                                              
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.16.0/commons-lang3-3.16.0.jar (674 kB at 1.8 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
-                                              
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5/5.4.4/httpcore5-5.4.4.jar (955 kB at 2.5 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.16.8/micrometer-commons-1.16.8.jar
-                                              
-Downloaded from central: https://repo.maven.apache.org/maven2/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar (2.0 MB at 5.0 MB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar
-                                 
-Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/core5/httpcore5-h2/5.4.4/httpcore5-h2-5.4.4.jar (264 kB at 613 kB/s)
-                                
-Downloaded from central: https://repo.maven.apache.org/maven2/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.jar (338 kB at 758 kB/s)
-                               
-Downloaded from central: https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar (20 kB at 44 kB/s)
-                              
-Downloaded from central: https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.16.8/micrometer-commons-1.16.8.jar (51 kB at 107 kB/s)
-                   
-Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar (52 kB at 109 kB/s)
 [INFO] Replacing main artifact /workspace/scratch/221e940a387b/taskflow-published-check/target/taskflow-api-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
 [INFO] The original artifact has been renamed to /workspace/scratch/221e940a387b/taskflow-published-check/target/taskflow-api-0.0.1-SNAPSHOT.jar.original
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  50.993 s
-[INFO] Finished at: 2026-10-23T23:01:10+08:00
+[INFO] Total time:  49.042 s
+[INFO] Finished at: 2026-10-24T00:03:20+08:00
 [INFO] ------------------------------------------------------------------------

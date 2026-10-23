@@ -25,7 +25,7 @@ public class TaskSummaryService {
             return "There are no tasks. Nothing is pending or completed.";
         }
         if (tasks.size() > 50) {
-            throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE,
+            throw new ResponseStatusException(HttpStatus.CONTENT_TOO_LARGE,
                     "Summary supports at most 50 tasks in this demonstration");
         }
 

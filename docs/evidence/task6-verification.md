@@ -1,6 +1,6 @@
 # Task 6 summary integration tests
 
-Recorded execution: 23 October 2026, Singapore time.
+Automated tests: 24 October 2026, Singapore time. Newman collection run: 23 October 2026, Singapore time.
 
 ## Test design
 

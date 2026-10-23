@@ -1,6 +1,6 @@
 # TaskFlow test results
 
-Recorded execution: 23 October 2026, Singapore time.
+Automated build: 24 October 2026, Singapore time. API and Postman collection runs: 23 October 2026, Singapore time.
 
 ## Build and automated tests
 
