@@ -4,50 +4,57 @@ TaskFlow is a Java 21 Spring Boot API for creating, viewing, updating, completin
 
 Repository: [Jefkong77/module3-taskflow-api](https://github.com/Jefkong77/module3-taskflow-api).
 
-## Source code: read in this order
+## Source code by assignment task
 
-| Order | Layer or purpose | Source file | Responsibility |
+The task numbers match the Module 3 assignment. Files are organised by their model, repository, service, or controller layer.
+
+| Task | Layer or purpose | Source file or folder | Responsibility |
 | --- | --- | --- | --- |
-| 1 | Model | [Task.java](src/main/java/sg/edu/ntu/taskflowapi/model/Task.java) | Holds id, title, and completed; Lombok generates getters, setters, and constructors |
-| 2 | Repository | [TaskRepository.java](src/main/java/sg/edu/ntu/taskflowapi/repository/TaskRepository.java) | Stores tasks in an initialized HashMap and generates IDs |
-| 3 | Service | [TaskService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Validates input and implements the six task operations |
-| 4 | Controller | [TaskController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskController.java) | Maps HTTP requests to task-service methods |
-| 5 | Explicit errors | [ApiExceptionHandler.java](src/main/java/sg/edu/ntu/taskflowapi/controller/ApiExceptionHandler.java) | Converts exceptions into readable HTTP error responses |
-| 6 | Configuration | [application.properties](src/main/resources/application.properties) | Configures the application, JSON binding, and Spring AI provider |
+| Task 1 | Folder structure | [Application package](src/main/java/sg/edu/ntu/taskflowapi) | Contains the four required folders: model, repository, service, controller |
+| Task 2 | Model | [Task.java](src/main/java/sg/edu/ntu/taskflowapi/model/Task.java) | Holds id, title, and completed; Lombok generates getters, setters, and constructors |
+| Task 3 | Repository | [TaskRepository.java](src/main/java/sg/edu/ntu/taskflowapi/repository/TaskRepository.java) | Stores tasks in an initialized HashMap and generates IDs |
+| Task 4 | Service | [TaskService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Validates input and implements the six task operations |
+| Task 5 | Controller | [TaskController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskController.java) | Maps the six task endpoints to service methods |
+| Task 6 | AI summary service | [TaskSummaryService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Reads tasks, prepares the prompt, and calls ChatClient |
+| Task 6 | AI summary controller | [TaskSummaryController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Exposes GET /api/tasks/summary as plain text |
 
-Task 6 uses two additional classes:
+Supporting files:
 
-| Layer | Source file | Responsibility |
+| Purpose | Source file | Responsibility |
 | --- | --- | --- |
-| Service | [TaskSummaryService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Reads tasks, prepares the prompt, and calls ChatClient |
-| Controller | [TaskSummaryController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Exposes GET /api/tasks/summary as plain text |
+| Explicit errors | [ApiExceptionHandler.java](src/main/java/sg/edu/ntu/taskflowapi/controller/ApiExceptionHandler.java) | Converts exceptions into readable HTTP error responses |
+| Configuration, including Task 6 | [application.properties](src/main/resources/application.properties) | Configures the application, JSON binding, and Spring AI provider |
+| Application startup | [TaskflowApiApplication.java](src/main/java/sg/edu/ntu/taskflowapi/TaskflowApiApplication.java) | Starts Spring Boot and component scanning |
+| Build and dependencies, including Task 6 | [pom.xml](pom.xml) | Declares the Java version, Spring Boot build, and Spring AI dependencies |
 
-The entry point is [TaskflowApiApplication.java](src/main/java/sg/edu/ntu/taskflowapi/TaskflowApiApplication.java). Dependencies are in [pom.xml](pom.xml). Browse [application source](src/main) and [test source](src/test/java/sg/edu/ntu/taskflowapi).
+Browse [application source](src/main) and [test source](src/test/java/sg/edu/ntu/taskflowapi).
 
 ## Project structure
 
+Task labels show where each assignment requirement is implemented. Task 5 is in the controller folder; Task 6 spans the service and controller folders, with provider settings in application.properties and Spring AI dependencies in pom.xml.
+
 ```text
 module3-taskflow-api/
-├── pom.xml
+├── pom.xml                                     # Build and Task 6 dependencies
 ├── mvnw
 ├── mvnw.cmd
 ├── src/
 │   ├── main/
 │   │   ├── java/sg/edu/ntu/taskflowapi/
 │   │   │   ├── TaskflowApiApplication.java
-│   │   │   ├── model/
-│   │   │   │   └── Task.java
-│   │   │   ├── repository/
-│   │   │   │   └── TaskRepository.java
-│   │   │   ├── service/
-│   │   │   │   ├── TaskService.java
-│   │   │   │   └── TaskSummaryService.java
-│   │   │   └── controller/
-│   │   │       ├── TaskController.java
-│   │   │       ├── ApiExceptionHandler.java
-│   │   │       └── TaskSummaryController.java
+│   │   │   ├── model/                          # Task 1: layer folder
+│   │   │   │   └── Task.java                   # Task 2: model
+│   │   │   ├── repository/                     # Task 1: layer folder
+│   │   │   │   └── TaskRepository.java         # Task 3: repository
+│   │   │   ├── service/                        # Task 1: layer folder
+│   │   │   │   ├── TaskService.java            # Task 4: task operations
+│   │   │   │   └── TaskSummaryService.java     # Task 6: AI summary
+│   │   │   └── controller/                     # Task 1: layer folder
+│   │   │       ├── TaskController.java         # Task 5: six task endpoints
+│   │   │       ├── ApiExceptionHandler.java    # Supporting HTTP errors
+│   │   │       └── TaskSummaryController.java  # Task 6: summary endpoint
 │   │   └── resources/
-│   │       └── application.properties
+│   │       └── application.properties          # Application and Task 6 settings
 │   └── test/java/sg/edu/ntu/taskflowapi/
 │       ├── TaskflowApiApplicationTests.java
 │       ├── service/

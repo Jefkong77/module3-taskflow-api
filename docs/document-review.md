@@ -15,7 +15,7 @@ The Module 3 specification defines a task-management API with a plain Task model
 
 Controllers receive services through constructors. TaskService receives TaskRepository through its constructor. TaskSummaryService receives TaskService and ChatClient.Builder. Spring supplies these dependencies; the model remains a plain Java object with no Spring annotations.
 
-The application entry point sits above the four layer packages so component scanning covers the controllers, services, and repository. Direct source links are in the [README](../README.md#source-code-read-in-this-order).
+The application entry point sits above the four layer packages so component scanning covers the controllers, services, and repository. Direct source links are grouped by assignment task in the [README](../README.md#source-code-by-assignment-task).
 
 ## Storage decisions
 

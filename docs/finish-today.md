@@ -25,7 +25,7 @@ java -version
 mvn -version
 ```
 
-Both commands should identify Java 21. Application source is under `src/main/java/sg/edu/ntu/taskflowapi`. Configuration is under `src/main/resources`. The [source-code table](../README.md#source-code-read-in-this-order) links each class.
+Both commands should identify Java 21. Application source is under `src/main/java/sg/edu/ntu/taskflowapi`. Configuration is under `src/main/resources`. The [source-code table](../README.md#source-code-by-assignment-task) links each class using the assignment's task numbers.
 
 ## Provider configuration
 
