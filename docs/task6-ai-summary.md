@@ -141,6 +141,8 @@ The fifty-task limit, fifteen-second timeout, and disabled retries are implement
 
 Summary unit tests use model doubles. HTTP integration tests use a local OpenAI-compatible test server with controlled JSON responses to verify the current POJO conversion. [Structured-output verification](evidence/structured-output-verification.md) records these tests. [Earlier Task 6 test results](evidence/task6-verification.md) link the archived reports, captured request data, and an [interactive OpenRouter verification](evidence/task6-verification.md#live-provider-verification) of the text-response implementation.
 
+The [live POJO verification](evidence/structured-output-verification.md#live-provider-verification) used OpenRouter with the `openrouter/free` route. The summary returned 200 OK in 7.04 seconds and correctly described the one completed task and one pending task. A subsequent GET confirmed that the source records were unchanged. The report includes both Postman screenshots.
+
 ## References
 
 - [Spring AI getting started](https://docs.spring.io/spring-ai/reference/getting-started.html)

@@ -2,7 +2,7 @@
 
 Automated tests and interactive Postman verification: 24 October 2026, Singapore time. Newman collection run: 23 October 2026, Singapore time.
 
-The reports below record the text-response implementation, including the live run of commit `158a381`. [Structured-output verification](structured-output-verification.md) records the subsequent TaskSummaryResult POJO conversion tests.
+The reports below record the text-response implementation, including the live run of commit `158a381`. [Structured-output verification](structured-output-verification.md) records the subsequent TaskSummaryResult POJO conversion tests and the [live OpenRouter verification](structured-output-verification.md#live-provider-verification) of commit `bb7e686`.
 
 ## Live provider verification
 
