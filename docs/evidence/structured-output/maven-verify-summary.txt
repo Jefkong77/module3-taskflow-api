@@ -1,0 +1,20 @@
+TaskFlow structured-output build
+Goals: clean verify
+Maven: 3.10.0
+IMPLEMENTOR="Eclipse Adoptium"
+JAVA_VERSION="21.0.13"
+
+[INFO] Running sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.551 s -- in sg.edu.ntu.taskflowapi.service.TaskSummaryServiceTest
+[INFO] Running sg.edu.ntu.taskflowapi.service.TaskServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in sg.edu.ntu.taskflowapi.service.TaskServiceTest
+[INFO] Running sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.966 s -- in sg.edu.ntu.taskflowapi.TaskflowApiApplicationTests
+[INFO] Running sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.008 s -- in sg.edu.ntu.taskflowapi.controller.TaskControllerHttpTest
+[INFO] Running sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.961 s -- in sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
+[INFO] Tests run: 28, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+[INFO] Total time:  01:11 min
+[INFO] Finished at: 2026-10-24T11:34:57+08:00

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.961 s -- in sg.edu.ntu.taskflowapi.controller.TaskSummaryHttpTest

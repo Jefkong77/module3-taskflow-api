@@ -29,7 +29,7 @@ class TaskSummaryServiceTest {
             return null;
         });
         assertEquals("There are no tasks. Nothing is pending or completed.",
-                summary.summarizeTasks());
+                summary.summarizeTasks().getSummary());
     }
 
     @Test
@@ -40,9 +40,13 @@ class TaskSummaryServiceTest {
         TaskSummaryService summary = service(prompt -> {
             sent.set(prompt);
             return new ChatResponse(List.of(new Generation(
-                    new AssistantMessage(" One task is done and one is pending. "))));
+                    new AssistantMessage("""
+                            {"summary":" One task is done and one is pending. "}
+                            """))));
         });
-        assertEquals("One task is done and one is pending.", summary.summarizeTasks());
+        assertEquals("One task is done and one is pending.",
+                summary.summarizeTasks().getSummary());
+        assertTrue(sent.get().getSystemMessage().getText().contains("summary"));
         String userData = sent.get().getInstructions().getLast().getText();
         assertTrue(userData.contains("Completed: 1\nPending: 1"));
         assertTrue(userData.contains("1 | PENDING | Review {source} carefully"));
@@ -82,5 +86,28 @@ class TaskSummaryServiceTest {
                 List.of(new Generation(new AssistantMessage("   ")))));
         assertEquals(502, assertThrows(ResponseStatusException.class,
                 summary::summarizeTasks).getStatusCode().value());
+    }
+
+    @Test
+    void malformedStructuredOutputReturns502WithoutLeakingOutput() {
+        tasks.createTask(new Task(null, "Research", false));
+        TaskSummaryService summary = service(prompt -> new ChatResponse(
+                List.of(new Generation(new AssistantMessage("Private malformed output")))));
+        ResponseStatusException error = assertThrows(ResponseStatusException.class,
+                summary::summarizeTasks);
+        assertEquals(502, error.getStatusCode().value());
+        assertFalse(error.getReason().contains("Private malformed output"));
+    }
+
+    @Test
+    void missingNullAndBlankSummaryFieldsAreRejected() {
+        tasks.createTask(new Task(null, "Research", false));
+        for (String output : List.of("{}", "null", "{\"summary\":null}",
+                "{\"summary\":\"   \"}")) {
+            TaskSummaryService summary = service(prompt -> new ChatResponse(
+                    List.of(new Generation(new AssistantMessage(output)))));
+            assertEquals(502, assertThrows(ResponseStatusException.class,
+                    summary::summarizeTasks).getStatusCode().value(), output);
+        }
     }
 }

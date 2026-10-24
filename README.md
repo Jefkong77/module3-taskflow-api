@@ -15,7 +15,7 @@ The task numbers match the Module 3 assignment. Files are organised by their mod
 | 3 | Repository | [repository/TaskRepository.java](src/main/java/sg/edu/ntu/taskflowapi/repository/TaskRepository.java) | Stores tasks in an initialized HashMap and generates IDs |
 | 4 | Service | [service/TaskService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskService.java) | Validates input and implements the six task operations |
 | 5 | Controller | [controller/TaskController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskController.java) | Maps the six task endpoints to service methods |
-| 6 | Spring AI summary | [service/TaskSummaryService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) and [controller/TaskSummaryController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Reads current tasks, calls ChatClient, and returns a plain-English summary through GET /api/tasks/summary |
+| 6 | Spring AI summary | [model/TaskSummaryResult.java](src/main/java/sg/edu/ntu/taskflowapi/model/TaskSummaryResult.java), [service/TaskSummaryService.java](src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java), and [controller/TaskSummaryController.java](src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Reads current tasks, maps AI output into a POJO, and returns its plain-English summary through GET /api/tasks/summary |
 
 Supporting files:
 
@@ -30,7 +30,7 @@ Browse [application source](src/main) and [test source](src/test/java/sg/edu/ntu
 
 ## Project structure
 
-Task labels show where each assignment requirement is implemented. Task 5 is in the controller folder; Task 6 spans the service and controller folders, with provider settings in application.properties and Spring AI dependencies in pom.xml.
+Task labels show where each assignment requirement is implemented. Task 5 is in the controller folder; Task 6 spans the model, service, and controller folders, with provider settings in application.properties and Spring AI dependencies in pom.xml.
 
 ```text
 module3-taskflow-api/
@@ -42,7 +42,8 @@ module3-taskflow-api/
 │   │   ├── java/sg/edu/ntu/taskflowapi/
 │   │   │   ├── TaskflowApiApplication.java
 │   │   │   ├── model/                          # Task 1: layer folder
-│   │   │   │   └── Task.java                   # Task 2: model
+│   │   │   │   ├── Task.java                   # Task 2: model
+│   │   │   │   └── TaskSummaryResult.java      # Task 6: AI output POJO
 │   │   │   ├── repository/                     # Task 1: layer folder
 │   │   │   │   └── TaskRepository.java         # Task 3: repository
 │   │   │   ├── service/                        # Task 1: layer folder
@@ -121,7 +122,7 @@ TaskController calls TaskService through constructor injection. TaskService vali
 
 Tasks are stored for the application session. An application or DevTools restart starts an empty collection and resets the counter. The repository returns copies and lists tasks by ID. Synchronized repository methods protect individual map operations and ID allocation.
 
-The summary service reads the current task list and returns text without changing task records. It uses the configured model for nonempty lists of up to fifty tasks. Empty lists return a fixed factual message, lists above fifty return 413, and provider failures or blank results return 502.
+The summary service reads the current task list and maps the AI response into TaskSummaryResult using `.entity(TaskSummaryResult.class)`. The controller returns the object's summary field as text/plain. It uses the configured model for nonempty lists of up to fifty tasks. Empty lists return a fixed factual message, lists above fifty return 413, and provider failures, malformed output, or missing/blank summaries return 502. Task records are unchanged.
 
 ## Documentation
 
@@ -134,14 +135,15 @@ The summary service reads the current task list and returns text without changin
 | [Task 6 summary](docs/task6-ai-summary.md) | ChatClient flow, provider configuration, and summary examples |
 | [Test results](docs/evidence/verification.md) | Build, API regression, and Postman/Newman reports |
 | [Task 6 test details](docs/evidence/task6-verification.md) | Prompt, provider-contract, and summary-error checks |
+| [Structured-output verification](docs/evidence/structured-output-verification.md) | POJO conversion, schema instructions, and invalid-output tests |
 
 ## Tests
 
-`mvn clean verify` runs 24 tests: ten task-service tests, one application-context test, three task-controller HTTP tests, five summary-service tests, and five summary HTTP tests. [TaskControllerHttpTest.java](src/test/java/sg/edu/ntu/taskflowapi/controller/TaskControllerHttpTest.java) uses Java's HTTP client against an isolated Spring Boot server to check the task lifecycle, validation, and missing resources. Summary unit tests use model doubles; summary HTTP tests use Spring AI with a local OpenAI-compatible test server and controlled responses.
+`mvn clean verify` runs 28 tests: ten task-service tests, one application-context test, three task-controller HTTP tests, seven summary-service tests, and seven summary HTTP tests. [TaskControllerHttpTest.java](src/test/java/sg/edu/ntu/taskflowapi/controller/TaskControllerHttpTest.java) uses Java's HTTP client against an isolated Spring Boot server to check the task lifecycle, validation, and missing resources. Summary unit tests use model doubles; summary HTTP tests use Spring AI with a local OpenAI-compatible test server and controlled JSON responses to verify POJO conversion and error handling.
 
 The [CRUD collection](docs/postman/TaskFlow.postman_collection.json) contains 24 requests. The [AI collection](docs/postman/TaskFlow-AI.postman_collection.json) contains nine requests. Both use the [TaskFlow Local environment](docs/postman/TaskFlow-Local.postman_environment.json). Recorded Newman runs passed 38 CRUD assertions and 15 summary assertions; the summary run used the local test server. See [test results](docs/evidence/verification.md) for the reports.
 
-An interactive Postman run on 24 October 2026 used OpenRouter's `openrouter/free` route. The summary returned HTTP 200 with the correct one-completed / one-pending description, and a subsequent GET confirmed unchanged task records. The [Task 6 verification](docs/evidence/task6-verification.md#live-provider-verification) includes the screenshots. A [WSL Ubuntu Maven build](docs/evidence/verification.md#wsl-ubuntu-build-and-interactive-verification) also passed all 24 tests after the explicit-lambda edits.
+An interactive Postman run of the text-response implementation on 24 October 2026 used OpenRouter's `openrouter/free` route. The summary returned HTTP 200 with the correct one-completed / one-pending description, and a subsequent GET confirmed unchanged task records. The [Task 6 verification](docs/evidence/task6-verification.md#live-provider-verification) includes the screenshots and identifies the verified version. A [WSL Ubuntu Maven build](docs/evidence/verification.md#wsl-ubuntu-build-and-interactive-verification) also passed all 24 tests after the explicit-lambda edits. [Structured-output verification](docs/evidence/structured-output-verification.md) records the POJO conversion tests.
 
 ## References
 
@@ -151,5 +153,6 @@ The assignment specification is `Module3_Assignment_mandatory (1) (2).docx`.
 - [Spring Boot documentation](https://docs.spring.io/spring-boot/)
 - [Lombok features](https://projectlombok.org/features/)
 - [Spring AI documentation](https://docs.spring.io/spring-ai/reference/)
+- [Spring AI structured outputs](https://docs.spring.io/spring-ai/reference/api/structured-output.html)
 - [Postman collection runs](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)
 - [Newman command-line runner](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/)

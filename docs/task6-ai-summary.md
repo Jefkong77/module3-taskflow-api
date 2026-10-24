@@ -1,11 +1,12 @@
 # Task 6 Spring AI summary endpoint
 
-GET `/api/tasks/summary` returns a short plain-English account of completed and pending tasks. TaskSummaryController delegates to TaskSummaryService. The service reads the current tasks through TaskService and sends the titles, completion states, and counts to Spring AI ChatClient.
+GET `/api/tasks/summary` returns a short plain-English account of completed and pending tasks. TaskSummaryController delegates to TaskSummaryService. The service reads the current tasks through TaskService, sends the titles, completion states, and counts to Spring AI ChatClient, and maps the response into a TaskSummaryResult POJO.
 
 ## Source files
 
 | File | Responsibility |
 | --- | --- |
+| [TaskSummaryResult.java](../src/main/java/sg/edu/ntu/taskflowapi/model/TaskSummaryResult.java) | Holds the AI-generated summary field; Lombok supplies accessors and constructors |
 | [TaskSummaryController.java](../src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Maps the summary route and returns text/plain |
 | [TaskSummaryService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Builds the injected client, prepares the prompt, and handles results |
 | [application.properties](../src/main/resources/application.properties) | Reads provider settings from environment variables |
@@ -17,7 +18,28 @@ GET `/api/tasks/summary` returns a short plain-English account of completed and 
 
 The summary route is a literal mapping under `/api/tasks`. The controller calls summarizeTasks. The service obtains a task snapshot through findAllTasks, counts completed and pending tasks, and creates a literal UserMessage containing task IDs, titles, and states.
 
-The constructor receives TaskService and ChatClient.Builder through Spring dependency injection. The system prompt asks for at most three short sentences, completed and pending counts, and a brief description of the work. It treats task titles as data and excludes invented tasks or deadlines. The returned text is trimmed before it is sent to the client. Stored tasks are unchanged.
+The constructor receives TaskService and ChatClient.Builder through Spring dependency injection. The system prompt asks for at most three short sentences in the summary field, completed and pending counts, and a brief description of the work. It treats task titles as data and excludes invented tasks or deadlines. Stored tasks are unchanged.
+
+## Structured output and the POJO
+
+TaskSummaryResult is a plain Java object with one String field, summary. The call ends with:
+
+```java
+.call()
+.entity(TaskSummaryResult.class);
+```
+
+Spring AI adds formatting instructions and a JSON schema derived from the Java class, then converts the model response into that class. For example, this model response:
+
+```json
+{"summary":"One task is completed and one is pending."}
+```
+
+becomes a TaskSummaryResult whose `getSummary()` returns the sentence. The service rejects a null result or missing/blank summary, trims the text, and returns the POJO. Malformed output or a failed provider call returns a readable 502 response.
+
+TaskSummaryController calls `service.summarizeTasks().getSummary()` and sends the text with Content-Type text/plain. The endpoint's URL and public response format stay the same. An empty task list creates the same POJO locally with its factual empty-list message.
+
+This uses Spring AI's prompt-based structured conversion. It does not require provider-native JSON-schema enforcement. The configured model must still produce the requested JSON; invalid responses are rejected. The [structured-output verification](evidence/structured-output-verification.md) covers conversion through the actual Spring AI client.
 
 ## Provider configuration
 
@@ -109,18 +131,21 @@ Then send GET `http://localhost:8080/api/tasks/summary`. A successful response h
 | One to fifty tasks | Send current task data to the configured model and return its summary |
 | More than fifty tasks | 413 with a limit message |
 | Failed provider request | 502 with a readable availability/configuration message |
-| Blank provider output | 502 with an empty-summary message |
+| Malformed model JSON | 502 with a readable availability/configuration message |
+| Missing, null, or blank summary field | 502 with an empty-summary message |
+| Blank provider output | 502 with a readable summary error |
 
 The fifty-task limit, fifteen-second timeout, and disabled retries are implementation safeguards. Provider diagnostics are excluded from HTTP error responses. The stored records provide the factual basis for interpreting generated text.
 
 ## Automated verification
 
-Summary unit tests use model doubles. HTTP integration tests and the recorded AI collection run use a local OpenAI-compatible test server with controlled response text. [Task 6 test results](evidence/task6-verification.md) link the reports and captured request data. The same report includes an [interactive OpenRouter verification](evidence/task6-verification.md#live-provider-verification), with the returned summary and task records shown in Postman.
+Summary unit tests use model doubles. HTTP integration tests use a local OpenAI-compatible test server with controlled JSON responses to verify the current POJO conversion. [Structured-output verification](evidence/structured-output-verification.md) records these tests. [Earlier Task 6 test results](evidence/task6-verification.md) link the archived reports, captured request data, and an [interactive OpenRouter verification](evidence/task6-verification.md#live-provider-verification) of the text-response implementation.
 
 ## References
 
 - [Spring AI getting started](https://docs.spring.io/spring-ai/reference/getting-started.html)
 - [Spring AI ChatClient](https://docs.spring.io/spring-ai/reference/api/chatclient.html)
+- [Spring AI structured outputs](https://docs.spring.io/spring-ai/reference/api/structured-output.html)
 - [Spring AI OpenAI configuration](https://docs.spring.io/spring-ai/reference/api/chat/openai-chat.html)
 - [OpenRouter authentication](https://openrouter.ai/docs/api_reference/authentication)
 - [OpenRouter Free Models Router](https://openrouter.ai/docs/guides/routing/routers/free-router)

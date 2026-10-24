@@ -20,6 +20,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import sg.edu.ntu.taskflowapi.model.Task;
 import sg.edu.ntu.taskflowapi.service.TaskService;
+import tools.jackson.databind.json.JsonMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +34,7 @@ class TaskSummaryHttpTest {
     private static final AtomicReference<String> responseText = new AtomicReference<>();
     private static final AtomicReference<String> requestBody = new AtomicReference<>();
     private static final AtomicReference<String> requestPath = new AtomicReference<>();
+    private static final JsonMapper jsonMapper = JsonMapper.builder().build();
     private static final HttpServer provider = startProvider();
 
     @LocalServerPort
@@ -54,9 +56,9 @@ class TaskSummaryHttpTest {
                           {"id":"test-completion","object":"chat.completion",
                            "created":1,"model":"gpt-4o-mini",
                            "choices":[{"index":0,"message":{"role":"assistant",
-                           "content":"%s"},"finish_reason":"stop"}],
+                           "content":%s},"finish_reason":"stop"}],
                            "usage":{"prompt_tokens":10,"completion_tokens":10,"total_tokens":20}}
-                          """.formatted(responseText.get())
+                          """.formatted(jsonMapper.writeValueAsString(responseText.get()))
                         : "{\"error\":{\"message\":\"Provider diagnostic to keep private\","
                                 + "\"type\":\"authentication_error\"}}";
                 byte[] body = json.getBytes(StandardCharsets.UTF_8);
@@ -83,7 +85,9 @@ class TaskSummaryHttpTest {
         tasks.findAllTasks().forEach(task -> tasks.deleteTask(task.getId()));
         calls.set(0);
         providerStatus.set(200);
-        responseText.set("One task is completed and one is pending. Review sources is pending.");
+        responseText.set("""
+                {"summary":"One task is completed and one is pending. Review sources is pending."}
+                """);
         requestBody.set(null);
         requestPath.set(null);
     }
@@ -100,20 +104,23 @@ class TaskSummaryHttpTest {
     }
 
     @Test
-    void literalSummaryRouteSendsTasksThroughSpringAiAndReturnsPlainText() throws Exception {
+    void mapsProviderJsonToPojoAndReturnsItsPlainEnglishSummary() throws Exception {
         tasks.createTask(new Task(null, "Review sources", false));
         tasks.createTask(new Task(null, "Write tests", true));
         HttpResponse<String> response = getSummary();
         assertEquals(200, response.statusCode());
         assertTrue(response.headers().firstValue("Content-Type").orElse("")
                 .startsWith("text/plain"));
-        assertEquals(responseText.get(), response.body());
+        assertEquals("One task is completed and one is pending. Review sources is pending.",
+                response.body());
         assertEquals(1, calls.get());
         assertEquals("/v1/chat/completions", requestPath.get());
         assertTrue(requestBody.get().contains("Completed: 1"));
         assertTrue(requestBody.get().contains("Pending: 1"));
         assertTrue(requestBody.get().contains("PENDING | Review sources"));
         assertTrue(requestBody.get().contains("DONE | Write tests"));
+        assertTrue(requestBody.get().contains("summary"));
+        assertTrue(requestBody.get().contains("schema"));
         assertEquals(2, tasks.findAllTasks().size());
         assertFalse(tasks.findAllTasks().getFirst().isCompleted());
     }
@@ -142,7 +149,29 @@ class TaskSummaryHttpTest {
         responseText.set("   ");
         HttpResponse<String> response = getSummary();
         assertEquals(502, response.statusCode());
-        assertTrue(response.body().contains("AI provider returned an empty summary"));
+        assertTrue(response.body().contains("AI summary is unavailable")
+                || response.body().contains("AI provider returned an empty summary"));
+    }
+
+    @Test
+    void malformedProviderJsonBecomes502WithoutLeakingOutput() throws Exception {
+        tasks.createTask(new Task(null, "Research", false));
+        responseText.set("Private malformed output");
+        HttpResponse<String> response = getSummary();
+        assertEquals(502, response.statusCode());
+        assertTrue(response.body().contains("AI summary is unavailable"));
+        assertFalse(response.body().contains("Private malformed output"));
+    }
+
+    @Test
+    void missingAndBlankSummaryFieldsBecome502() throws Exception {
+        tasks.createTask(new Task(null, "Research", false));
+        for (String output : java.util.List.of("{}", "{\"summary\":\"   \"}")) {
+            responseText.set(output);
+            HttpResponse<String> response = getSummary();
+            assertEquals(502, response.statusCode());
+            assertTrue(response.body().contains("AI provider returned an empty summary"));
+        }
     }
 
     @Test

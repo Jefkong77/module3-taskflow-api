@@ -2,6 +2,8 @@
 
 Automated builds and interactive Postman verification: 24 October 2026, Singapore time. API regression and Newman collection runs: 23 October 2026, Singapore time.
 
+The current POJO-mapping implementation is covered by [structured-output verification](structured-output-verification.md). The archived 24-test builds and interactive results below cover the earlier text-response implementation.
+
 ## Build and automated tests
 
 The archived Tasks 1–6 build passed `clean verify` with 24 tests, zero failures, zero errors, and zero skips. That build used Java 21.0.13 Temurin, Spring Boot 4.1.2, Spring AI 2.0.1, and Maven 3.10.0 through the generated wrapper.

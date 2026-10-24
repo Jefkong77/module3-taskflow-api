@@ -17,6 +17,6 @@ public class TaskSummaryController {
 
     @GetMapping(value = "/summary", produces = MediaType.TEXT_PLAIN_VALUE)
     public String summarizeTasks() {
-        return service.summarizeTasks();
+        return service.summarizeTasks().getSummary();
     }
 }

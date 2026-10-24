@@ -19,6 +19,7 @@ Specification: `Module3_Assignment_mandatory (1) (2).docx`. Tasks 1–5 define t
 | Task 5: six routes and success codes | [API contract](../README.md#api-contract) | Exact methods and paths; POST 201 and the other five successes 200 |
 | Task 6: Spring AI dependency | [pom.xml](../pom.xml) | Spring AI BOM and OpenAI starter |
 | Task 6: injected ChatClient and summary | [TaskSummaryService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Constructor-injected ChatClient.Builder creates the client; current tasks and counts form the prompt |
+| Task 6: structured AI response | [TaskSummaryResult.java](../src/main/java/sg/edu/ntu/taskflowapi/model/TaskSummaryResult.java); [TaskSummaryService.java](../src/main/java/sg/edu/ntu/taskflowapi/service/TaskSummaryService.java) | Additional implementation choice: Spring AI maps model JSON into a summary POJO using entity(TaskSummaryResult.class) |
 | Task 6: GET /api/tasks/summary | [TaskSummaryController.java](../src/main/java/sg/edu/ntu/taskflowapi/controller/TaskSummaryController.java) | Short plain-English response with text/plain content type |
 | Task 6: environment-based key | [application.properties](../src/main/resources/application.properties) | Exact reference spring.ai.openai.api-key=${OPENAI_API_KEY}; shell setup in the Task 6 guide |
 | Postman testing for every endpoint | [CRUD collection](postman/TaskFlow.postman_collection.json); [AI collection](postman/TaskFlow-AI.postman_collection.json) | Task operations, validation, completion, and summary flow |

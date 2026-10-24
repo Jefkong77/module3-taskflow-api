@@ -8,7 +8,7 @@ The Module 3 specification defines a task-management API with a plain Task model
 
 | Layer | Classes | Responsibility |
 | --- | --- | --- |
-| Model | Task | Holds task data using Lombok-generated accessors and constructors |
+| Model | Task; TaskSummaryResult | Holds task data and the structured AI summary using Lombok-generated accessors and constructors |
 | Repository | TaskRepository | Owns the initialized HashMap, generated IDs, and storage methods |
 | Service | TaskService; TaskSummaryService | Implements task operations, validation, and summary generation |
 | Controller | TaskController; TaskSummaryController; ApiExceptionHandler | Maps requests, selects response codes, and formats errors |
@@ -47,7 +47,9 @@ Spring Boot 4.1.2 and Spring AI 2.0.1 are declared in [pom.xml](../pom.xml). The
 
 The provider key, base URL, and model are read from environment variables. The prompt uses a literal UserMessage so braces in task titles remain data. The system instructions request a short summary and treat titles as untrusted input.
 
-Empty lists return a fixed factual message. A fifty-task limit bounds prompt size. The client timeout is fifteen seconds and retries are disabled. Failed provider requests and blank responses produce readable 502 errors. These safeguards are implementation choices.
+The AI call uses `.entity(TaskSummaryResult.class)` to map model JSON into a POJO. TaskSummaryService checks the summary field and trims its text. TaskSummaryController returns that field as text/plain, preserving the assignment's plain-English endpoint. TaskSummaryResult represents AI output; Task represents stored task data.
+
+Empty lists return a fixed factual message. A fifty-task limit bounds prompt size. The client timeout is fifteen seconds and retries are disabled. Failed provider requests, malformed model JSON, and missing or blank summaries produce readable 502 errors. These safeguards are implementation choices.
 
 ## Verification approach
 
