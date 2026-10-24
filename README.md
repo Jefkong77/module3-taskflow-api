@@ -141,6 +141,8 @@ The summary service reads the current task list and returns text without changin
 
 The [CRUD collection](docs/postman/TaskFlow.postman_collection.json) contains 24 requests. The [AI collection](docs/postman/TaskFlow-AI.postman_collection.json) contains nine requests. Both use the [TaskFlow Local environment](docs/postman/TaskFlow-Local.postman_environment.json). Recorded Newman runs passed 38 CRUD assertions and 15 summary assertions; the summary run used the local test server. See [test results](docs/evidence/verification.md) for the reports.
 
+An interactive Postman run on 24 October 2026 used OpenRouter's `openrouter/free` route. The summary returned HTTP 200 with the correct one-completed / one-pending description, and a subsequent GET confirmed unchanged task records. The [Task 6 verification](docs/evidence/task6-verification.md#live-provider-verification) includes the screenshots. A [WSL Ubuntu Maven build](docs/evidence/verification.md#wsl-ubuntu-build-and-interactive-verification) also passed all 24 tests after the explicit-lambda edits.
+
 ## References
 
 The assignment specification is `Module3_Assignment_mandatory (1) (2).docx`.

@@ -1,6 +1,38 @@
-# Task 6 summary integration tests
+# Task 6 summary verification
 
-Automated tests: 24 October 2026, Singapore time. Newman collection run: 23 October 2026, Singapore time.
+Automated tests and interactive Postman verification: 24 October 2026, Singapore time. Newman collection run: 23 October 2026, Singapore time.
+
+## Live provider verification
+
+The application ran in WSL Ubuntu with Java 21.0.12.1, Spring Boot 4.1.2, Spring AI 2.0.1, and an OpenRouter connection configured through environment variables.
+
+| Item | Recorded result |
+| --- | --- |
+| Provider | OpenRouter |
+| Configured model route | `openrouter/free` |
+| Request | GET `http://localhost:8080/api/tasks/summary` |
+| HTTP status | 200 OK |
+| Observed response time | 4.28 seconds |
+| Summary | Three sentences describing one completed task and one pending task |
+
+The two synthetic task records were:
+
+| ID | Title | completed |
+| --- | --- | --- |
+| 1 | Prepare presentation slides | false |
+| 2 | Book meeting room | true |
+
+The returned response body was:
+
+> One task is completed and one is pending. The finished work is booking the meeting room. The pending work is preparing presentation slides.
+
+![Postman summary response](2026-10-24/summary-postman.png)
+
+A subsequent GET `/api/tasks` returned 200 OK and retained both records with their original IDs, titles, and completion states.
+
+![Task records after generating the summary](2026-10-24/tasks-after-summary.png)
+
+The [WSL Ubuntu build result](verification.md#wsl-ubuntu-build-and-interactive-verification) records the successful 24-test Maven build for the explicit-lambda changes in commit `158a381`.
 
 ## Test design
 

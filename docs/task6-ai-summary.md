@@ -46,8 +46,10 @@ For OpenRouter, use:
 ```bash
 export OPENAI_API_KEY='YOUR_OPENROUTER_API_KEY'
 export OPENAI_BASE_URL='https://openrouter.ai/api/v1'
-export OPENAI_MODEL='openai/gpt-4o-mini'
+export OPENAI_MODEL='openrouter/free'
 ```
+
+The OpenRouter example uses the [Free Models Router](https://openrouter.ai/docs/guides/routing/routers/free-router), which selects an available free model for the request. Availability, response time, and free-model rate limits can vary.
 
 The key strings above are placeholders. Use the configuration for one provider, with its corresponding credential. Store the credential in the shell configuration outside the project. Update existing exports when changing providers.
 
@@ -90,11 +92,11 @@ Postman scripts check status codes, content type, nonempty output, and stored st
 Create two synthetic tasks with POST `/api/tasks` using Body, raw, JSON:
 
 ```json
-{"title":"Prepare the meeting agenda","completed":false}
+{"title":"Prepare presentation slides","completed":false}
 ```
 
 ```json
-{"title":"Confirm the meeting venue","completed":true}
+{"title":"Book meeting room","completed":true}
 ```
 
 Then send GET `http://localhost:8080/api/tasks/summary`. A successful response has status 200, Content-Type text/plain, and describes one completed task and one pending task. Use GET `/api/tasks` to inspect the source records.
@@ -113,7 +115,7 @@ The fifty-task limit, fifteen-second timeout, and disabled retries are implement
 
 ## Automated verification
 
-Summary unit tests use model doubles. HTTP integration tests and the recorded AI collection run use a local OpenAI-compatible test server with controlled response text. [Task 6 test results](evidence/task6-verification.md) link the reports and captured request data.
+Summary unit tests use model doubles. HTTP integration tests and the recorded AI collection run use a local OpenAI-compatible test server with controlled response text. [Task 6 test results](evidence/task6-verification.md) link the reports and captured request data. The same report includes an [interactive OpenRouter verification](evidence/task6-verification.md#live-provider-verification), with the returned summary and task records shown in Postman.
 
 ## References
 
@@ -121,4 +123,4 @@ Summary unit tests use model doubles. HTTP integration tests and the recorded AI
 - [Spring AI ChatClient](https://docs.spring.io/spring-ai/reference/api/chatclient.html)
 - [Spring AI OpenAI configuration](https://docs.spring.io/spring-ai/reference/api/chat/openai-chat.html)
 - [OpenRouter authentication](https://openrouter.ai/docs/api_reference/authentication)
-- [OpenRouter model identifier](https://openrouter.ai/openai/gpt-4o-mini)
+- [OpenRouter Free Models Router](https://openrouter.ai/docs/guides/routing/routers/free-router)

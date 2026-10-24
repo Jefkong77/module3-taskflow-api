@@ -1,10 +1,10 @@
 # TaskFlow test results
 
-Automated build: 24 October 2026, Singapore time. API and Postman collection runs: 23 October 2026, Singapore time.
+Automated builds and interactive Postman verification: 24 October 2026, Singapore time. API regression and Newman collection runs: 23 October 2026, Singapore time.
 
 ## Build and automated tests
 
-The Tasks 1–6 build passed `clean verify` with 24 tests, zero failures, zero errors, and zero skips. The build uses Java 21.0.13 Temurin, Spring Boot 4.1.2, Spring AI 2.0.1, and Maven 3.10.0 through the generated wrapper.
+The archived Tasks 1–6 build passed `clean verify` with 24 tests, zero failures, zero errors, and zero skips. That build used Java 21.0.13 Temurin, Spring Boot 4.1.2, Spring AI 2.0.1, and Maven 3.10.0 through the generated wrapper.
 
 | Test suite | Passed | Report |
 | --- | --- | --- |
@@ -16,6 +16,14 @@ The Tasks 1–6 build passed `clean verify` with 24 tests, zero failures, zero e
 | Total | 24 | [Maven build log](java-http-maven-verify.txt) |
 
 Task-controller HTTP tests start an isolated Spring Boot server and use Java's HTTP client to exercise all six task endpoints, JSON binding, validation, generated IDs, repeated completion, deletion, and missing resources. They run within the Maven test suite. Summary unit tests use model doubles. Summary HTTP integration tests connect the Spring AI client to a local OpenAI-compatible test server with controlled responses. They exercise request serialization, response parsing, and HTTP error handling.
+
+## WSL Ubuntu build and interactive verification
+
+After the explicit-lambda edits to TaskRepository and TaskSummaryService, `mvn clean verify` passed all 24 tests with zero failures, errors, or skips. The application was packaged as an executable Jar. The build completed on 24 October 2026 at 09:56:46 Singapore time in 16.518 seconds. The changes are recorded in commit `158a381`.
+
+![WSL Ubuntu Maven verification](2026-10-24/maven-verify.png)
+
+The interactive Postman check used OpenRouter's `openrouter/free` route. GET `/api/tasks/summary` returned 200 OK with a three-sentence summary correctly describing one completed task and one pending task. GET `/api/tasks` afterward confirmed unchanged task records. The [live provider verification](task6-verification.md#live-provider-verification) contains the response and task-list screenshots.
 
 ## API and Postman collection runs
 
