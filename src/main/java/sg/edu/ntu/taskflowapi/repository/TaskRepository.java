@@ -15,7 +15,7 @@ public class TaskRepository {
 
     public synchronized List<Task> findAll() {
         return tasks.values().stream()
-                .sorted(Comparator.comparing(Task::getId))
+                .sorted(Comparator.comparing(task -> task.getId()))
                 .map(this::copy)
                 .toList();
     }

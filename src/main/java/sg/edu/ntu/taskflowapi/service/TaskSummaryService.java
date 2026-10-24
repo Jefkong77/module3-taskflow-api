@@ -29,7 +29,7 @@ public class TaskSummaryService {
                     "Summary supports at most 50 tasks in this demonstration");
         }
 
-        long completed = tasks.stream().filter(Task::isCompleted).count();
+        long completed = tasks.stream().filter(task -> task.isCompleted()).count();
         String taskData = tasks.stream()
                 .map(task -> task.getId() + " | "
                         + (task.isCompleted() ? "DONE" : "PENDING") + " | "
